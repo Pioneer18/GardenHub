@@ -14,4 +14,22 @@ var queryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat;
 }).then(function (response) {
     console.log(response);
 })
+
+
+// GOOGLE MAPS API
+var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
+    
+    
+    
+    
+// Performing  AJAX GET request
+$.ajax({
+   url: queryURL,
+   method: "GET"
+ }).then(function(response) {
+   console.log(response);
+ });
+
+
+
 });
