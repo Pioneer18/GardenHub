@@ -4,11 +4,11 @@ $(document).ready(function () {
 var lat = 28.53;
 var long = -81.37;
 
-var queryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat;
+var soilQueryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat;
 
  //AJAX method 
  $.ajax({
-    url: queryURL,
+    url: soilQueryURL,
     method: "GET"
     //promise event
 }).then(function (response) {
@@ -17,14 +17,16 @@ var queryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat;
 
 
 // GOOGLE MAPS API
-var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
+var street = "4000 Central Florida Blvd";
+var city = "Orlando";
+var state = "florida";
+
+var mapQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="+ street + "," + city + "," + state + "&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
     
-    
-    
-    
+
 // Performing  AJAX GET request
 $.ajax({
-   url: queryURL,
+   url: mapQueryURL,
    method: "GET"
  }).then(function(response) {
    console.log(response);
