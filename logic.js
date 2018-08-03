@@ -1,37 +1,50 @@
 $(document).ready(function () {
     console.log("ready!");
 
-    //Soil API
-    var lat = 28.53;
-    var long = -81.37;
+    var lat;
+    var long;
 
-    var soilQueryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat;
+    //function for Google Maps API
+    function googleMaps() {
+        // GOOGLE MAPS API
+        var street = "4000 Central Florida Blvd";
+        var city = "Orlando";
+        var state = "florida";
 
-    //AJAX method 
-    $.ajax({
-        url: soilQueryURL,
-        method: "GET"
-        //promise event
-    }).then(function (response) {
-        console.log(response);
-    })
+        var mapQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + street + "," + city + "," + state + "&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
 
 
-    // GOOGLE MAPS API
-    var street = "4000 Central Florida Blvd";
-    var city = "Orlando";
-    var state = "florida";
+        // Performing  AJAX GET request
+        $.ajax({
+            url: mapQueryURL,
+            method: "GET"
+        }).then(function (response) {
+            lat = (response.results[0].geometry.location.lat);
+            long = (response.results[0].geometry.location.lng);
+            console.log(lat);
+            console.log(long);
+            //call soil API function
+            restSoil();
+        })
+    }
 
-    var mapQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + street + "," + city + "," + state + "&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
+    //function for Soil API
+    function restSoil() {
+        //Soil API
+        var soilQueryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat;
 
+        //AJAX method 
+        $.ajax({
+            url: soilQueryURL,
+            method: "GET"
+            //promise event
+        }).then(function (response) {
+            console.log(response);
+        })
+    }
 
-    // Performing  AJAX GET request
-    $.ajax({
-        url: mapQueryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
-    });
+    //call google Maps function
+    googleMaps();
 
     //Plant JSON Object
     var vegetables = [{
