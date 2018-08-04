@@ -2,19 +2,35 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <!--JQuery CDN-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="logic.js"></script>
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <title>Test</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+   <!--JQuery CDN-->
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+       crossorigin="anonymous"></script>
+   <script src="logic.js"></script>
 </head>
 
 <body>
+   <form id="user_location">
+       <!--grab the address to pass to the google api-->
+       <input type="text" name="street" id="street_input">
+       <input type="text" name="city" id="city_input">
+       <input type="text" name="state" id="state_input">
+       <br>
+       <!--grab the users plan of planting; by seed or transplat (potted plant to ground)-->
+       <div id="soil_level">
+           <label>Plant transplant</label>
+           <input type="radio" name="transplant" value="transplant" id="plant" data-type="plant">
+           <label>From Seed</label>
+           <input type="radio" name="seed" value="seed" id="seed" data-type="seed">
+       </div>
+       <input type="submit" id="search">
+   </form>
 
 </body>
 
 </html>
+
