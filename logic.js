@@ -3,6 +3,19 @@ $(document).ready(function () {
 
     var lat;
     var long;
+    var pH;
+    var sand;
+    var silt;
+    var clay;
+    var soilType = "";
+    var count;
+    var finalVegMatches = [];
+    var vegMatches = {
+        pH: [],
+        texture: [],
+        latitude: [],
+    }
+
 
     //function for Google Maps API
     function googleMaps() {
@@ -28,6 +41,9 @@ $(document).ready(function () {
         })
     }
 
+    //call google Maps function
+    googleMaps();
+
     //function for Soil API
     function restSoil() {
         //Soil API
@@ -40,11 +56,103 @@ $(document).ready(function () {
             //promise event
         }).then(function (response) {
             console.log(response);
+            //storing soil data in variables
+            var pull = response.properties;
+            pH = pull.PHIHOX.M.sl1;
+            pH = pH / 10;
+            sand = pull.SNDPPT.M.sl1;
+            silt = pull.SLTPPT.M.sl1;
+            clay = pull.CLYPPT.M.sl1;
+            //console log the variables
+            console.log("pH: " + pH);
+            console.log("latitude: " + lat);
+            console.log("sand: " + sand);
+            console.log("silt: " + silt);
+            console.log("clay: " + clay);
+            checkSoil();
+            checkVegetables();
+            finalVegArray();
         })
     }
 
-    //call google Maps function
-    googleMaps();
+    //function to check which vegetables match the user soil
+    function checkVegetables() {
+        //check if soil pH falls in each veg pH range
+        for (i = 0; i < vegetables.length; i++) {
+            if (pH >= vegetables[i].pH[0] && pH <= vegetables[i].pH[1]) {
+                vegMatches.pH.push(vegetables[i].type);
+            }
+            //check if user latitude falls in each veg latitude range
+            if (lat >= vegetables[i].latitude[0] && lat <= vegetables[i].latitude[1]) {
+                vegMatches.latitude.push(vegetables[i].type);
+            }
+            //check if user soil type matches veg soil type
+            for (j = 0; j < vegetables[i].texture.length; j++) {
+                if (soilType === vegetables[i].texture[j]) {
+                    vegMatches.texture.push(vegetables[i].type);
+                }
+            }
+        }
+        console.log("pH veg matches: " + vegMatches.pH);
+        console.log("latitude veg matches: " + vegMatches.latitude);
+        console.log("soil texture veg matches: " + vegMatches.texture);
+    }
+
+    //function to determine the soil type at location
+    function checkSoil() {
+        //determine if soil type is loam
+        var loamSand = 40 - sand;
+        var loamSilt = 40 - silt;
+        var loamClay = 20 - clay;
+        if ((loamSand > 0 && loamSand <= 5) && (loamSilt > 0 && loamSilt <= 5) && (loamClay > 0 && loamClay <= 5)) {
+            soilType = "loam";
+        }
+        else {
+            parseInt(sand);
+            parseInt(silt);
+            parseInt(clay);
+            var high = Math.max(sand, silt, clay);
+            console.log("high = " + high);
+        }
+        //determin if soil type is sandy, silt, or clay
+        if (high = sand) {
+            soilType = "sandy"
+        }
+        else if (high = silt) {
+            soilType = "silt"
+        }
+        else if (high = clay) {
+            soilType = "clay"
+        }
+        console.log("Soil type: " + soilType)
+    }
+    //function to determine the final veg array. Checks if veg meets 2 out of 3 requirements
+    function finalVegArray() {
+        for (i = 0; i < vegetables.length; i++) {
+            for (j = 0; j < vegMatches.pH.length; j++) {
+                if (vegetables[i].type === vegMatches.pH[j]) {
+                    count++
+                }
+            }
+            for (k = 0; k < vegMatches.texture.length; k++) {
+                if (vegetables[i].type === vegMatches.texture[k]) {
+                    count++
+                }
+            }
+            for (l = 0; l < vegMatches.latitude.length; l++) {
+                if (vegetables[i].type === vegMatches.latitude[l]) {
+                    count++
+                }
+            }
+            if (count >= 2) {
+                finalVegMatches.push(vegetables[i].type);
+                count = 0;
+            }
+            else {count = 0;}
+        }
+        console.log("final veggies: " + finalVegMatches);
+    }
+
 
     //Plant JSON Object
     var vegetables = [{
