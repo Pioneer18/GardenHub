@@ -1,60 +1,112 @@
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>GardenHub</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="main.js"></script>
-        <!-- //WINDOW PLUGIN -->
-        <script src="js/jquery.windows.js"></script>
-        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->
-        <!-- //FIT TEXT PLUGIN -->
-        <script src="js/jquery.fittext.js"></script>
-        <script src="js/prism.js"></script>
-        <script src="http://cdn.intercoolerjs.org/intercooler-1.2.1.min.js"></script>
-        <link rel="stylesheet" href="http://prismjs.com/themes/prism-dark.css"/>
-        <script src="logic.js"></script>
-        
-    </head>
-    <body>
-        
-        <div class="container">
-            <section class="window">
-                <div class="jumbotron text-center">
-                <div class="row-6">
-                <h1 class="display-12"><i class="far fa-address-card" id="responsive_headline"></i>  GardenHub</h1>
-                <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
-            </div>
-            
-            </div>
+<!DOCTYPE html>
+<html>
 
-   
-                
-            </section>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GardenHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- <script src="main.js"></script> -->
+    <!-- //WINDOW PLUGIN -->
+    <script src="js/jquery.windows.js"></script>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->
+    <!-- //FIT TEXT PLUGIN -->
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/prism.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-            
-            <section class="window">
-                    <div class="row-6">
-                            <!-- <pre class="scroll">
-                            <code class="language-css">
-                                    @import url(http://fonts.googleapis.com/css?family=Questrial);
-                                    @import url(http://fonts.googleapis.com/css?family=Arvo);
-                                 
-                                    @font-face {
-                                     src: url(http://lea.verou.me/logo.otf);
-                                     font-family: 'LeaVerou';
-                                    }
-                                 
-                                 </code>
-                                </pre> -->
-                              
-                              
-            </section>
-        
-            
-        
-    </body>
-    </html>
+    <script src="http://cdn.intercoolerjs.org/intercooler-1.2.1.min.js"></script>
+    <link rel="stylesheet" href="http://prismjs.com/themes/prism-dark.css" />
+    
+    <!-- <script src="logic.js"></script> -->
+
+</head>
+
+<body>
+
+        <section class="window">
+ 
+                        <i class="far fa-address-card" id="responsive_headline"></i> GardenHub</h1>
+                    <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
+    
+
+        </section>
+
+
+        <section class="window">
+          
+                <form>
+                    <div class="form-row">
+
+                    </div>
+                    <div class="col-auto">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
+                    </div>
+                    <div class="col-auto">
+                        <label for="inputAddress2">Address 2</label>
+                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    </div>
+                    <div class="form-row">
+                        <div class="col-auto">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <select id="inputState" name="states" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                    </div>
+                    <!--grab the users plan of planting; by seed or transplat (potted plant to ground)-->
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="iplant" value="transplant">
+                        <label class="form-check-label" for="inlineRadio1">Transplant</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="seed" value="seed">
+                        <label class="form-check-label" for="inlineRadio2">Seed</label>
+                    </div>
+                    <!-- <div class="form-group">
+                                      <div class="form-check"> -->
+                    <!--grab the users plan of planting; by seed or transplat (potted plant to ground)-->
+                    <!-- <div id="soil_level">
+                                             <label>Plant transplant</label>
+                                             <input type="radio" name="transplant" value="transplant" id="plant" data-type="plant">
+                                             <label>From Seed</label>
+                                             <input type="radio" name="seed" value="seed" id="seed" data-type="seed">
+                                         </div> -->
+                    <!-- <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          
+                                        </label> -->
+            </div>
+    </div>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+
+    
+
+    </section>
+    <!-- address form and plant -->
+
+
+
+
+
+</body>
+
+</html>
