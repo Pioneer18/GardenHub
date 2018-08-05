@@ -30,7 +30,32 @@
         crossorigin=""/>
         <!--  -->
         <!-- main JS -->
-        <script src="js/logic.js"></script>
+            <script src="js/logic.js"></script>
+            <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+            <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
+        <!--===============================================================================================-->
+            <!-- <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css"> -->
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
+        <!--===============================================================================================-->
+            <link rel="stylesheet" type="text/css" href="css/util.css">
+            <link rel="stylesheet" type="text/css" href="css/main.css">
+        <!--===============================================================================================-->
+        
     </head>
     <body>
         
@@ -38,116 +63,195 @@
                 <!-- window 1 jumotron -->
              
                         <section class="window">
+   
                           
-                       
-                            <h1 class="display-12"><i class="far fa-address-card" id="responsive_headline"></i>  GardenHub</h1>
-                            <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
+                            <div class="container-fluid text-center">    
+                                <div class="row content">
+                                <div class="col-sm-2">
+                               
+                                </div>
+                                <div class="col-sm-8 text-left"> 
+                                  <h1 class="display-12"><i class="far fa-address-card" id="responsive_headline"></i>  GardenHub</h1>
+                                  <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
+                                </div>
+                                <div class="col-sm-2">
                         
+                                </div>
+                                </div>
+                            </div>
                       
             
                         <!-- MAP -->
                     
-                        <div class="col-4" id="maps">
-                        <div id="mapid" style="width: 1200px; height: 200px; margin-left: 150px; margin-top: 350px;"></div>
-                       
-                    </div>
-                
-
-                        <script>
-                        // sets map position
-                            var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-        
-                        //connects to map api and retrives data/displays map
-                            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                                maxZoom: 18,
-                                attribution: '',
-                                id: 'mapbox.streets'
-                            }).addTo(mymap);
-                            L.marker([51.5, -0.09]).addTo(mymap)
-                            .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-        
-                            L.circle([51.508, -0.11], 500, {
-                                color: 'red',
-                                fillColor: '#f03',
-                                fillOpacity: 0.5
-                            }).addTo(mymap).bindPopup("I am a circle.");
-        
-                            L.polygon([
-                                [51.509, -0.08],
-                                [51.503, -0.06],
-                                [51.51, -0.047]
-                            ]).addTo(mymap).bindPopup("I am a polygon.");
-        
-        
-                            var popup = L.popup();
-                    </script>     
+ 
             
             </section>
         
             <!-- //window 2 container -->
             <section class="window">
-           
+
+                	<div class="container-contact100">
+                            <div class="wrap-contact100">
+                                <form class="contact100-form validate-form">
+                                    <span class="contact100-form-title">
+                                        Contact Us
+                                    </span>
+                    
+                                    <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                                            <label class="label-input100" for="inputAddress">Address</label>
+                                            <input class="input100" type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
+                                       
+                                    </div>
+                    
+                                    <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">
+                                            <label class="label-input100" for="inputAddress2">City</label>
+                                            <input class="input100" type="text" class="form-control" id="inputAddress2" placeholder="City">
+                                        
+                                    </div>
+                    
+                                    <div class="wrap-input100 bg1 rs1-wrap-input100">
+                                            <label class="label-input100" for="inputZip">Zip</label>
+                                            <input class="input100" type="text" class="form-control" id="inputZip">
+                                    </div>
+                    
+                                    <div class="wrap-input100 input100-select bg1">
+                                        <span class="label-input100">State *</span>
+                                        <div class="input100">
+                                                <label class="input100" for="inputState"></label>
+                                                <select class="input100" id="inputState" name="states" class="form-control">
+                                                    <option selected>Choose...</option>
+                                                    <option>...</option>
+                                                </select>
+                                      
+                                        </div>
+                                    </div>
+                    
+                                    
+                    
+                                       
+<!--                     
+                                    <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+                                        <span class="label-input100">Message</span>
+                                        <textarea class="input100" name="message" placeholder="Your message here..."></textarea>
+                                    </div> -->
+                    
+                                    <div class="container-contact100-form-btn">
+                                        <button class="contact100-form-btn">
+                                            <span>
+                                                Submit
+                                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+       
+                    <!-- <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="well well-sm">
                     <form>
                             <div class="form-row">
         
                             </div>
-                            <div class="col-auto">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
                                 <label for="inputAddress">Address</label>
                                 <input type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
                             </div>
-                            <div class="col-auto">
+                        </div>
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                        <div class="col-md-8">
                                 <label for="inputAddress2">Address 2</label>
                                 <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
                             </div>
+                            </div>
                             <div class="form-row">
-                                <div class="col-auto">
+                                    <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                                    <div class="col-md-8">
                                     <label for="inputCity">City</label>
                                     <input type="text" class="form-control" id="inputCity">
                                 </div>
-                                <div class="form-group col-md-4">
+                                </div>
+                                <div class "form-row">
+                                <div class="form-group col-md-6">
                                     <label for="inputState">State</label>
                                     <select id="inputState" name="states" class="form-control">
                                         <option selected>Choose...</option>
                                         <option>...</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-6">
                                     <label for="inputZip">Zip</label>
                                     <input type="text" class="form-control" id="inputZip">
                                 </div>
                             </div>
+                            </div>
                             <!--grab the users plan of planting; by seed or transplat (potted plant to ground)-->
-                            <div class="form-check form-check-inline">
+                            <!-- <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="iplant" value="transplant">
                                 <label class="form-check-label" for="inlineRadio1">Transplant</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="seed" value="seed">
                                 <label class="form-check-label" for="inlineRadio2">Seed</label>
-                            </div>
-                            <!-- <div class="form-group">
-                                              <div class="form-check"> -->
-                            <!--grab the users plan of planting; by seed or transplant (potted plant to ground)-->
-                            <!-- <div id="soil_level">
-                                                     <label>Plant transplant</label>
-                                                     <input type="radio" name="transplant" value="transplant" id="plant" data-type="plant">
-                                                     <label>From Seed</label>
-                                                     <input type="radio" name="seed" value="seed" id="seed" data-type="seed">
-                                                 </div> -->
-                            <!-- <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                <label class="form-check-label" for="gridCheck">
-                                                  
-                                                </label> -->
-                    </div>
+                            </div>  -->
+                           
+                    <!-- </div>
             </div>
             <br>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+        </div>
+    </div>
+</div>
+</div> -->
         
            
             </section>
-        
+        <section class="window">
+            <div class="col-4" id="maps">
+            <div id="mapid" style="width: 500px; height: 500px; margin-left: 515px; margin-top: 250px;"></div>
+        </div>
+                
+
+        <script>
+        // sets map position
+            var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+        //connects to map api and retrives data/displays map
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 18,
+                attribution: '',
+                id: 'mapbox.streets'
+            }).addTo(mymap);
+            L.marker([51.5, -0.09]).addTo(mymap)
+            .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+
+            L.circle([51.508, -0.11], 500, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5
+            }).addTo(mymap).bindPopup("I am a circle.");
+
+            L.polygon([
+                [51.509, -0.08],
+                [51.503, -0.06],
+                [51.51, -0.047]
+            ]).addTo(mymap).bindPopup("I am a polygon.");
+
+
+            var popup = L.popup();
+             </script>    
+           </section>
+        <section class="window">
+
+        </section>
             
         
     </body>
