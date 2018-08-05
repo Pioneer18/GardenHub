@@ -1,6 +1,6 @@
 $(document).ready(function () {
     console.log("ready!");
-
+//declaring values to be used for compatablie plant logic, used in the ajax promise
     var lat;
     var long;
     var pH;
@@ -18,6 +18,7 @@ $(document).ready(function () {
 
 
     //function for Google Maps API
+    //google api call that will pass bind the above lat and lon and pass it to the soil api
     function googleMaps() {
         // GOOGLE MAPS API
         var street = "4000 Central Florida Blvd";
@@ -55,6 +56,8 @@ $(document).ready(function () {
             method: "GET"
             //promise event
         }).then(function (response) {
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------(all the compatablie veggie logic happesn from here on, this is where the bulk of our app logic is)----------------------------
             console.log(response);
             //storing soil data in variables
             var pull = response.properties;
