@@ -26,6 +26,7 @@ $(document).ready(function () {
     var soilType = "";
     var count;
     var finalMatches = [];
+    var recMatches = [];
     var matches = {
         pH: [],
         texture: [],
@@ -83,9 +84,15 @@ $(document).ready(function () {
             var pull = response.properties;
             pH = pull.PHIHOX.M.sl1;
             pH = pH / 10;
+            //Write soil pH to HTML
+            $("#soilpH").html( pH);
             sand = pull.SNDPPT.M.sl1;
             silt = pull.SLTPPT.M.sl1;
             clay = pull.CLYPPT.M.sl1;
+            //Write soil makeup to HTML
+            $("#soilMakeup").append("<li>" + "Sand: " + sand + "%</li>");
+            $("#soilMakeup").append("<li>" + "Silt: " + silt + "%</li>");
+            $("#soilMakeup").append("<li>" + "Clay: " + clay + "%</li>");
             //console log the variables
             console.log("pH: " + pH);
             console.log("latitude: " + lat);
@@ -160,7 +167,7 @@ $(document).ready(function () {
         }
         console.log("Soil type: " + soilType)
     }
-    //function to determine the final plants array. Checks which plants meet 2 out of 3 requirements
+    //function to determine the final plants array. 
     function finalPlants(plantArray) {
         for (i = 0; i < plantArray.length; i++) {
             for (j = 0; j < matches.pH.length; j++) {
@@ -179,13 +186,19 @@ $(document).ready(function () {
                     count++
                 }
             }
-            if (count === 3) {
-
-                finalMatches.push(plantArray[i].type);
-                count = 0;
+            //Checks which plants meet 2 out of 3 requirements
+            if (count >= 2){ 
+                $("#recPlants").append("<li>" + plantArray[i].type + "</li>")
+                recMatches.push(plantArray[i].type);
             }
-            else { count = 0; }
+            //Checks which plants meet 3 out of 3 requirements
+            if (count === 3) {
+                $("#idealPlants").append("<li>" + plantArray[i].type + "</li>")
+                finalMatches.push(plantArray[i].type);
+            }
+            count = 0;
         }
+        console.log("recommended: " + recMatches);
         console.log("final matches: " + finalMatches);
     }
 
