@@ -1,9 +1,21 @@
 $(document).ready(function () {
     console.log("ready!");
 
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAmEw_VKQgJvGQLxvT1BbFkm6HbiZ9Qjws",
+        authDomain: "garden-hub-d14e1.firebaseapp.com",
+        databaseURL: "https://garden-hub-d14e1.firebaseio.com",
+        projectId: "garden-hub-d14e1",
+        storageBucket: "garden-hub-d14e1.appspot.com",
+        messagingSenderId: "363801126348"
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
 
 
-//declaring values to be used for compatablie plant logic, used in the ajax promise
+    //declaring values to be used for compatablie plant logic, used in the ajax promise
 
     var lat;
     var long;
@@ -21,7 +33,7 @@ $(document).ready(function () {
     }
 
 
-   
+
     //google api call that will pass bind the above lat and lon and pass it to the soil api
     function googleMaps() {
         // GOOGLE MAPS API
@@ -63,8 +75,8 @@ $(document).ready(function () {
         }).then(function (response) {
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//-----------------------(all the compatablie veggie logic happesn from here on, this is where the bulk of our app logic is)----------------------------
+            ///////////////////////////////////////////////////////////////////////////////////////////////////
+            //-----------------------(all the compatablie veggie logic happens from here on, this is where the bulk of our app logic is)----------------------------
 
             console.log(response);
             //storing soil data in variables
@@ -112,7 +124,7 @@ $(document).ready(function () {
         console.log("latitude matches: " + matches.latitude);
         console.log("soil texture matches: " + matches.texture);
 
-  
+
     }
 
     //function to determine the soil type at location
@@ -125,7 +137,7 @@ $(document).ready(function () {
         parseInt(loamSilt);
         var loamClay = 20 - clay;
         parseInt(loamClay);
-        if ((loamSand >= -10 && loamSand <= 10) && (loamSilt >= -10 && loamSilt <= 10) && (loamClay >= -10 && loamClay <= 10)){
+        if ((loamSand >= -10 && loamSand <= 10) && (loamSilt >= -10 && loamSilt <= 10) && (loamClay >= -10 && loamClay <= 10)) {
             soilType = "loam";
         }
         else {
