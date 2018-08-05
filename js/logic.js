@@ -32,6 +32,7 @@ $(document).ready(function () {
         latitude: [],
     }
 
+    
 
 
     //google api call that will pass bind the above lat and lon and pass it to the soil api
@@ -101,6 +102,23 @@ $(document).ready(function () {
             finalPlants(fruits);
         })
     }
+
+    $('.window').windows({
+        snapping: true,
+        snapSpeed: 500,
+        snapInterval: 500,
+        onScroll: function(scrollPos){
+            // scrollPos:Number
+        },
+        onSnapComplete: function($el){
+            // after window ($el) snaps into place
+        },
+        onWindowEnter: function($el){
+            // when new window ($el) enters viewport
+        }
+    });
+
+
 
     //function to check which plants match the user soil
     function checkPlants(plantArray) {
