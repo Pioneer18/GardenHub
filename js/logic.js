@@ -179,7 +179,7 @@ $(document).ready(function () {
                     count++
                 }
             }
-            if (count >= 2) {
+            if (count === 3) {
 
                 finalMatches.push(plantArray[i].type);
                 count = 0;
