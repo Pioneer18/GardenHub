@@ -331,3 +331,16 @@ html, body {
   background: #231f20;
   top: 500%;
 }
+.form-row {
+	margin-left: 9px;
+}
+.form-row>[class*=col-] {
+  padding-top: 4px;
+}
+.form-check-inline .form-check-input {
+  margin-left: 16px;
+}
+.btn-primary{
+  margin-left: 16px;
+}
+
