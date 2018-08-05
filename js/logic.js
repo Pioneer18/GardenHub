@@ -1,6 +1,10 @@
 $(document).ready(function () {
     console.log("ready!");
 
+
+
+//declaring values to be used for compatablie plant logic, used in the ajax promise
+
     var lat;
     var long;
     var pH;
@@ -17,12 +21,14 @@ $(document).ready(function () {
     }
 
 
-    //function for Google Maps API
+   
+    //google api call that will pass bind the above lat and lon and pass it to the soil api
     function googleMaps() {
         // GOOGLE MAPS API
-        var street = "7700 E Bayaud Ave";
-        var city = "denver";
-        var state = "colorado";
+        var street = "4000 Central Florida Blvd";
+        var city = "Orlando";
+        var state = "florida";
+
 
         var mapQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + street + "," + city + "," + state + "&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
 
@@ -55,6 +61,11 @@ $(document).ready(function () {
             method: "GET"
             //promise event
         }).then(function (response) {
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------(all the compatablie veggie logic happesn from here on, this is where the bulk of our app logic is)----------------------------
+
             console.log(response);
             //storing soil data in variables
             var pull = response.properties;
@@ -70,6 +81,7 @@ $(document).ready(function () {
             console.log("silt: " + silt);
             console.log("clay: " + clay);
             checkSoil();
+
             //Depending on user input, run the functions with 'vegetables' or 'fruits'
             // checkPlants(vegetables);
             // finalPlants(vegetables);
@@ -99,6 +111,8 @@ $(document).ready(function () {
         console.log("pH matches: " + matches.pH);
         console.log("latitude matches: " + matches.latitude);
         console.log("soil texture matches: " + matches.texture);
+
+  
     }
 
     //function to determine the soil type at location
@@ -120,6 +134,7 @@ $(document).ready(function () {
             parseInt(clay);
             var high = Math.max(sand, silt, clay);
             console.log("high = " + high);
+
             //determine if soil type is sandy, silt, or clay
             if (high = sand) {
                 soilType = "sandy"
@@ -148,10 +163,12 @@ $(document).ready(function () {
             }
             for (l = 0; l < matches.latitude.length; l++) {
                 if (plantArray[i].type === matches.latitude[l]) {
+
                     count++
                 }
             }
             if (count >= 2) {
+
                 finalMatches.push(plantArray[i].type);
                 count = 0;
             }
@@ -162,6 +179,7 @@ $(document).ready(function () {
 
 
     //veg JSON Object
+
     var vegetables = [{
         type: "tomato",
         pH: [5.5, 7.5],
@@ -216,7 +234,9 @@ $(document).ready(function () {
         texture: ["sandy", "loam", "silt"],
         latitude: [30, 45]
     }]
+
     //fruits JSON object
+
     var fruits = [{
         type: "watermelon",
         pH: [6.0, 6.8],
