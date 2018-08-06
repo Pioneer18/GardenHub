@@ -59,10 +59,9 @@ function googleMaps() {
         url: mapQueryURL,
         method: "GET"
     }).then(function (response) {
+        console.log(response);
         googleLat = (response.results[0].geometry.location.lat);//binds the google lat to the googleLat
         googlegLon = (response.results[0].geometry.location.lng);//binds the google lat to the googleLon
-        console.log(lat);
-        console.log(long);
         //call soil API function
         restSoil(googleLat, googleLon);//when the googleMaps function is called passes it values to to the soil api
     })
@@ -116,16 +115,18 @@ function restSoil(lat, long) {
 //--------(STEP #7 define user's inputed address submit button to call the soilGrids api with a specfied adress)-----------------------------------------------
 
 //the address submit button
-$("#address-submit").click( function(event){
+$("#enter").click( function(event){
+    depth= "sl1";
+    googleMaps();
     //gotta prevent the form from reloading the page
-    event.preventDefault();  //OK THIS IS NOT WORKING AND I HAVE ZERO, ABSOLUTELY ZERO IDEA WHY, TRIED EVERYTHING TO MAKE THIS WORK...PAGE ALWAYS RELOADS CANT SEE RESULTS!!!!!!!!!!!!!!!
+    event.preventDefault(); //this works, no problem
     //when this button is clicked the googleMaps() is called which calls the soil api with the google lat and lon
-    if(depth === "sl1" || depth === "sl4"){
-        googleMaps(street,city,state);
-    }else{
-        $("#error_box").html("please select seed or plant transplant so we can give you the correct info!");
-        console.log("didn't select depth");
-    }
+    //if(depth === "sl1" || depth === "sl4"){
+       // googleMaps();
+    //}else{
+       // $("#error_box").html("please select seed or plant transplant so we can give you the correct info!");
+        //console.log("didn't select depth");
+   // }
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
