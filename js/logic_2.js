@@ -36,25 +36,6 @@ $(document).ready(function () {
     });
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //--------(STEP #2 grab users input of how they will be planting; seed or transplant, so we know what soild depth value to pull from the soilGrids api)--------
-    //the user will select a radio button inside of a div of id #soil_level
-    //the below click() captures the users button selection and its data-type attribute; seed or plant
-    $("#soil_level").on("click", function (event) {
-        console.log("hello?");
-        //bind the variable soil_level to the selected inputs data-type attr(seed or plant)
-        var soil_level = $(event.target).attr("data-type");
-        console.log(soil_level);
-    });
-
-    var depth;
-    if (soil_level === "seed") { //then pass a var depth of sl1 to the query's depth argument
-        depth = "sl1";
-        console.log(depth);
-    }
-    else {//then pass sl4 to the query's depth argument
-        depth = "sl4"
-        console.log(depth);
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     var Lat;  //the latitude that will be bound to the google api  
@@ -91,7 +72,7 @@ $(document).ready(function () {
     //function for Soil API
     function restSoil() {
         //Soil API
-        var soilQueryURL = "https://rest.soilgrids.org/query?&lon=" + Lon + "&lat=" + Lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX" + "&depths=" + depth; //NOTE: !! need to add the arguments and depth to the end of the call still
+        var soilQueryURL = "https://rest.soilgrids.org/query?&lon=" + Lon + "&lat=" + Lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX"; 
         //AJAX method 
         $.ajax({
             url: soilQueryURL,
@@ -107,20 +88,20 @@ $(document).ready(function () {
 
             //NOTE: all the pulls end with depth, this is so we get the value at the same depth that the user specified (either sl1 or sl4 for now; see lines 39-47)
 
-            pH = pull.PHIHOX.M.depth;  //grabs the soil ph
+            pH = pull.PHIHOX.M.sl1;  //grabs the soil ph
             pH = pH / 10;  //pushes the decimal on returned ph value to the left (e.g. 55 becomes 5.5)
             //Write soil pH to HTML 
             $("#soilpH").html(pH);
-            sand = pull.SNDPPT.M.depth;  //pulls the sand percentage of the soil
-            silt = pull.SLTPPT.M.depth;  //pulls the silt percentage of the soil
-            clay = pull.CLYPPT.M.depth;  //pulls the clay percentage of the soil
+            sand = pull.SNDPPT.M.sl1;  //pulls the sand percentage of the soil
+            silt = pull.SLTPPT.M.sl1;  //pulls the silt percentage of the soil
+            clay = pull.CLYPPT.M.sl1;  //pulls the clay percentage of the soil
             //Write soil makeup to HTML 
             $("#soilMakeup").append("<li>" + "Sand: " + sand + "%</li>");
             $("#soilMakeup").append("<li>" + "Silt: " + silt + "%</li>");
             $("#soilMakeup").append("<li>" + "Clay: " + clay + "%</li>");
             //console log the variables to check the data
             console.log("pH: " + pH);
-            console.log("latitude: " + lat);
+            console.log("latitude: " + Lat);
             console.log("sand: " + sand);
             console.log("silt: " + silt);
             console.log("clay: " + clay);
@@ -140,17 +121,8 @@ $(document).ready(function () {
 
     //the address submit button
     $("#enter").click(function (event) {
-        depth = "sl1";
+        event.preventDefault(); 
         googleMaps();
-        //gotta prevent the form from reloading the page
-        event.preventDefault(); //this works, no problem
-        //when this button is clicked the googleMaps() is called which calls the soil api with the google lat and lon
-        //if(depth === "sl1" || depth === "sl4"){
-        // googleMaps();
-        //}else{
-        // $("#error_box").html("please select seed or plant transplant so we can give you the correct info!");
-        //console.log("didn't select depth");
-        // }
     });
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
