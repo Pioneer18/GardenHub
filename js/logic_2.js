@@ -2,6 +2,8 @@ $(document).ready(function () {
     console.log("ready!");
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+  
     //--------(STEP #1 Declare all the global variables)-----------------------------------------------------------------------------------------------------------
     //declaring values to be used for compatablie plant logic, used in the ajax promiset
     var pH;
@@ -17,7 +19,21 @@ $(document).ready(function () {
         texture: [],
         latitude: [],
     }
-
+     
+    $('.window').windows({
+        snapping: true,
+        snapSpeed: 500,
+        snapInterval: 500,
+        onScroll: function (scrollPos) {
+            // scrollPos:Number
+        },
+        onSnapComplete: function ($el) {
+            // after window ($el) snaps into place
+        },
+        onWindowEnter: function ($el) {
+            // when new window ($el) enters viewport
+        }
+    });
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //--------(STEP #2 grab users input of how they will be planting; seed or transplant, so we know what soild depth value to pull from the soilGrids api)--------
@@ -41,12 +57,13 @@ $(document).ready(function () {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    var Lat;  //the latitude that will be bound to the google api  
+    var Lon; //the longitude that will be bound to the google api response
     //--------(STEP #4 define the googleMaps function that calls the googleMaps api ajax and passes the returned lat and lon to the soilGrids api Ajax call)--------
     //google api call that will pass bind the above lat and lon and pass it to the soil api
     function googleMaps() {
-        var googleLat;  //the latitude that will be bound to the google api response
-        var googleLon; //the longitude that will be bound to the google api response
+        // var googleLat;  //the latitude that will be bound to the google api  
+        // var googleLon; //the longitude that will be bound to the google api response
         var street = $("#street_input").val();  //grabs the street for the goolge ajax
         console.log(street);
         var city = $("#inputCity").val(); //grabs the city for the google ajax
@@ -60,20 +77,21 @@ $(document).ready(function () {
             url: mapQueryURL,
             method: "GET"
         }).then(function (response) {
+            console.log("the google response");
             console.log(response);
-            googleLat = (response.results[0].geometry.location.lat);//binds the google lat to the googleLat
-            googlegLon = (response.results[0].geometry.location.lng);//binds the google lat to the googleLon
+            Lat = (response.results[0].geometry.location.lat);//binds the google lat to the googleLat
+            Lon = (response.results[0].geometry.location.lng);//binds the google lat to the googleLon
             //call soil API function
-            restSoil(googleLat, googleLon);//when the googleMaps function is called passes it values to to the soil api
+            restSoil();//when the googleMaps function is called passes it values to to the soil api
         })
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //--------(STEP #5 define the restSoil() to call the soilGrids api Ajax; it has lat and lon paramaters to accept from google or the instant geolocation)-------
     //function for Soil API
-    function restSoil(lat, long) {
+    function restSoil() {
         //Soil API
-        var soilQueryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX" + "&depths=" + depth; //NOTE: !! need to add the arguments and depth to the end of the call still
+        var soilQueryURL = "https://rest.soilgrids.org/query?&lon=" + Lon + "&lat=" + Lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX" + "&depths=" + depth; //NOTE: !! need to add the arguments and depth to the end of the call still
         //AJAX method 
         $.ajax({
             url: soilQueryURL,

@@ -14,6 +14,8 @@ $(document).ready(function () {
 
     var database = firebase.database();
 
+ 
+
 
     //declaring values to be used for compatablie plant logic, used in the ajax promise
 
@@ -102,21 +104,6 @@ $(document).ready(function () {
             finalPlants(fruits);
         })
     }
-
-    $('.window').windows({
-        snapping: true,
-        snapSpeed: 500,
-        snapInterval: 500,
-        onScroll: function (scrollPos) {
-            // scrollPos:Number
-        },
-        onSnapComplete: function ($el) {
-            // after window ($el) snaps into place
-        },
-        onWindowEnter: function ($el) {
-            // when new window ($el) enters viewport
-        }
-    });
 
 
 
