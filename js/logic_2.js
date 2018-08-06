@@ -4,13 +4,6 @@ $(document).ready(function () {
 
 //--------(STEP #1 Declare all the global variables)-----------------------------------------------------------------------------------------------------------
 //declaring values to be used for compatablie plant logic, used in the ajax promiset
-var googleLat;  //the latitude that will be bound to the google api response
-var googleLon; //the longitude that will be bound to the google api response
-var geoLat; //the latitude that will come from the instant geolocation 
-var geoLon; //the longitude that will come from the instant geolocation
-var street = $("#street_input").val();  //grabs the street for the goolge ajax
-var city = $("#inputCity").val(); //grabs the city for the google ajax
-var state = $("#inputState").val(); //grabs the state for the google ajax
 var pH; 
 var sand;
 var silt;
@@ -48,33 +41,17 @@ else{//then pass sl4 to the query's depth argument
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//--------(Step #3 call the immediate geolocation function to get the users immediate lat and lon)--------------------------------------------------------------
-function getUserLocation () {
-    //check if Geolocation is supported first
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(showPosition);
-    }else{
-        //if Geolocation is not available display this to the user; NOTE: !! for now console log but we should have a div for displaying the error to html
-        console.log("Geolocation is not supported by this browser.");
-    }
-}
-
-//if the getCurrentPosition methods was successful, it returns a coordinates object to the funciton spoecified/in the parameters (showPosition)
-//define the showPostion function to get the coordinates and bind them to the geoLat and geoLon variables
-function showPosition(position) {
-    geoLat = position.coords.latitude; //this bound the instantly generated geolocation lat to the geoLat variable
-    geoLon = position.coords.longitude; //the bound the instantly generated geolocation lon to the geoLon variable
-    console.log(geoLat);
-    console.log(geoLon);
-}
-//call the functions that were defined above and produce the variables
-//with the above function calls we have now bound the geoLat and geoLon variables to the instant geolocation results
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //--------(STEP #4 define the googleMaps function that calls the googleMaps api ajax and passes the returned lat and lon to the soilGrids api Ajax call)--------
 //google api call that will pass bind the above lat and lon and pass it to the soil api
-function googleMaps(street,city,state) {
+function googleMaps() {
+    var googleLat;  //the latitude that will be bound to the google api response
+    var googleLon; //the longitude that will be bound to the google api response
+    var street = $("#street_input").val();  //grabs the street for the goolge ajax
+    console.log(street);
+    var city = $("#inputCity").val(); //grabs the city for the google ajax
+    console.log(city);
+    var state = $("#inputState").val(); //grabs the state for the google ajax
+    console.log(state);
     // GOOGLE MAPS API
     var mapQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + street + "," + city + "," + state + "&key=AIzaSyD2LArc3HQsicIEJKTcAH0wIDKXJtq9Fg0";
     // Performing  AJAX GET request
@@ -96,7 +73,7 @@ function googleMaps(street,city,state) {
 //function for Soil API
 function restSoil(lat, long) {
     //Soil API
-    var soilQueryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat; //NOTE: !! need to add the arguments and depth to the end of the call still
+    var soilQueryURL = "https://rest.soilgrids.org/query?lon=" + long + "&lat=" + lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX" + "&depths=" + depth; //NOTE: !! need to add the arguments and depth to the end of the call still
     //AJAX method 
     $.ajax({
         url: soilQueryURL,
@@ -104,7 +81,7 @@ function restSoil(lat, long) {
         //promise event
     }).then(function (response) { //this is the promise that holds the core logic that determines what grows in this location
 
-//-----------------------(all the compatablie veggie logic happesn from here on, this is where the bulk of our app logic is)----------------------------
+//---------------------(this pull the values out of the object)----------------------------
 
             console.log(response);
             //storing soil data in variables
@@ -135,43 +112,19 @@ function restSoil(lat, long) {
     }//end of the soilGrids Ajax call
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// NOTE: from this point on the functions used in the soilGrids ajax are defined and the "click" event listeners on the form submission buttons are defined to 
-//call the apis
-
-//--------(step #6 define the use current location button to call the soilGris api with the user's immediate location)------------------------------------------
-
-$("#use-current-location").click(function(event){
-    event.preventDefault();  //OK THIS IS NOT WORKING AND I HAVE ZERO, ABSOLUTELY ZERO IDEA WHY, TRIED EVERYTHING TO MAKE THIS WORK...PAGE ALWAYS RELOADS CANT SEE RESULTS!!!!!!!!!!!!!!!
-    getUserLocation(); // we are putting the function to grab the geolocation in here so it only happens when the button is clicked
-    showPosition(); //  we are putting the function to grab the geolocation in here so it only happens when the button is clicked
-    //gotta prevent the form from reloading the page
-    console.log("is the instant click working?");
-    //wrap the function in a conditon that the soil depth must have been slected by the user first
-    if(depth === "sl1" || depth === "sl4"){
-        restSoil(geoLat, geoLon); //this should call the soil api with the geolocators position
-    }else{
-        console.log("didn't select depth yet");
-        $("#error_box").html("please select seed or plant transplant so we can give you the correct info!");
-    }
-    
-});
-
-
-////gotta grab the info from the form and pass it as parameters to the googleMaps() function in the on click of the form submit button
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //--------(STEP #7 define user's inputed address submit button to call the soilGrids api with a specfied adress)-----------------------------------------------
 
 //the address submit button
 $("#address-submit").click( function(event){
     //gotta prevent the form from reloading the page
-    $(event).preventDefault();  //OK THIS IS NOT WORKING AND I HAVE ZERO, ABSOLUTELY ZERO IDEA WHY, TRIED EVERYTHING TO MAKE THIS WORK...PAGE ALWAYS RELOADS CANT SEE RESULTS!!!!!!!!!!!!!!!
+    event.preventDefault();  //OK THIS IS NOT WORKING AND I HAVE ZERO, ABSOLUTELY ZERO IDEA WHY, TRIED EVERYTHING TO MAKE THIS WORK...PAGE ALWAYS RELOADS CANT SEE RESULTS!!!!!!!!!!!!!!!
     //when this button is clicked the googleMaps() is called which calls the soil api with the google lat and lon
     if(depth === "sl1" || depth === "sl4"){
         googleMaps(street,city,state);
     }else{
         $("#error_box").html("please select seed or plant transplant so we can give you the correct info!");
+        console.log("didn't select depth");
     }
 });
 
@@ -380,5 +333,72 @@ $("#address-submit").click( function(event){
         latitude: [25, 35]
     }]
 
+    var usStates = [
+        { name: 'ALABAMA', abbreviation: 'AL' },
+        { name: 'ALASKA', abbreviation: 'AK' },
+        { name: 'AMERICAN SAMOA', abbreviation: 'AS' },
+        { name: 'ARIZONA', abbreviation: 'AZ' },
+        { name: 'ARKANSAS', abbreviation: 'AR' },
+        { name: 'CALIFORNIA', abbreviation: 'CA' },
+        { name: 'COLORADO', abbreviation: 'CO' },
+        { name: 'CONNECTICUT', abbreviation: 'CT' },
+        { name: 'DELAWARE', abbreviation: 'DE' },
+        { name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC' },
+        { name: 'FEDERATED STATES OF MICRONESIA', abbreviation: 'FM' },
+        { name: 'FLORIDA', abbreviation: 'FL' },
+        { name: 'GEORGIA', abbreviation: 'GA' },
+        { name: 'GUAM', abbreviation: 'GU' },
+        { name: 'HAWAII', abbreviation: 'HI' },
+        { name: 'IDAHO', abbreviation: 'ID' },
+        { name: 'ILLINOIS', abbreviation: 'IL' },
+        { name: 'INDIANA', abbreviation: 'IN' },
+        { name: 'IOWA', abbreviation: 'IA' },
+        { name: 'KANSAS', abbreviation: 'KS' },
+        { name: 'KENTUCKY', abbreviation: 'KY' },
+        { name: 'LOUISIANA', abbreviation: 'LA' },
+        { name: 'MAINE', abbreviation: 'ME' },
+        { name: 'MARSHALL ISLANDS', abbreviation: 'MH' },
+        { name: 'MARYLAND', abbreviation: 'MD' },
+        { name: 'MASSACHUSETTS', abbreviation: 'MA' },
+        { name: 'MICHIGAN', abbreviation: 'MI' },
+        { name: 'MINNESOTA', abbreviation: 'MN' },
+        { name: 'MISSISSIPPI', abbreviation: 'MS' },
+        { name: 'MISSOURI', abbreviation: 'MO' },
+        { name: 'MONTANA', abbreviation: 'MT' },
+        { name: 'NEBRASKA', abbreviation: 'NE' },
+        { name: 'NEVADA', abbreviation: 'NV' },
+        { name: 'NEW HAMPSHIRE', abbreviation: 'NH' },
+        { name: 'NEW JERSEY', abbreviation: 'NJ' },
+        { name: 'NEW MEXICO', abbreviation: 'NM' },
+        { name: 'NEW YORK', abbreviation: 'NY' },
+        { name: 'NORTH CAROLINA', abbreviation: 'NC' },
+        { name: 'NORTH DAKOTA', abbreviation: 'ND' },
+        { name: 'NORTHERN MARIANA ISLANDS', abbreviation: 'MP' },
+        { name: 'OHIO', abbreviation: 'OH' },
+        { name: 'OKLAHOMA', abbreviation: 'OK' },
+        { name: 'OREGON', abbreviation: 'OR' },
+        { name: 'PALAU', abbreviation: 'PW' },
+        { name: 'PENNSYLVANIA', abbreviation: 'PA' },
+        { name: 'PUERTO RICO', abbreviation: 'PR' },
+        { name: 'RHODE ISLAND', abbreviation: 'RI' },
+        { name: 'SOUTH CAROLINA', abbreviation: 'SC' },
+        { name: 'SOUTH DAKOTA', abbreviation: 'SD' },
+        { name: 'TENNESSEE', abbreviation: 'TN' },
+        { name: 'TEXAS', abbreviation: 'TX' },
+        { name: 'UTAH', abbreviation: 'UT' },
+        { name: 'VERMONT', abbreviation: 'VT' },
+        { name: 'VIRGIN ISLANDS', abbreviation: 'VI' },
+        { name: 'VIRGINIA', abbreviation: 'VA' },
+        { name: 'WASHINGTON', abbreviation: 'WA' },
+        { name: 'WEST VIRGINIA', abbreviation: 'WV' },
+        { name: 'WISCONSIN', abbreviation: 'WI' },
+        { name: 'WYOMING', abbreviation: 'WY' }
+    ];
+    for (var i = 0; i < usStates.length; i++) {
+        var option = document.createElement("option");
+        option.text = usStates[i].name;
+        option.value = usStates[i].abbreviation;
+        inputState.add(option);
+    }
 
 });
