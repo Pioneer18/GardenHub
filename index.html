@@ -9,14 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- main JS -->
+    <script src="js/logic_2.js"></script>
     <!--Firebase-->
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
     <!-- //WINDOW PLUGIN -->
@@ -53,79 +58,71 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
 
+
 </head>
 
 <body>
-   <!-- window 1 jumotron -->
-   <section class="window">
+    <!-- window 1 jumotron -->
+    <section class="window">
 
-    <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-2">
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-2">
 
-            </div>
-            <div class="col-sm-8 text-left">
-                <h1 class="display-12">
-                    <i class="far fa-address-card" id="responsive_headline"></i> GardenHub</h1>
-                <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
-                <p id="modalButton">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                        More Info
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">More info</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <h4>About Garden Hub</h4>
-                                    <p>Garden Hub allows you to get information about the soil at your location in order
-                                        to find out what fruits or vegetables grow best in that type of soil.</p>
-                                    <br>
-                                    <h4>Instructions</h4>
-                                    <p>Enter your address in the form below and choose whether you want to grow from seed
-                                        or transplant, and whether you want to grow fruits or vegetables. Click submit
-                                        to find out more information about your soil type and to get planting recomendations!</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="col-sm-8 text-left">
+                    <h1 class="display-12">
+                        <i class="far fa-address-card" id="responsive_headline"></i> GardenHub</h1>
+                    <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
+                    <p id="modalButton">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+                            More Info
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">More info</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>About Garden Hub</h4>
+                                        <p>Garden Hub allows you to get information about the soil at your location in order
+                                            to find out what fruits or vegetables grow best in that type of soil.</p>
+                                        <br>
+                                        <h4>Instructions</h4>
+                                        <p>Enter your address in the form below and choose whether you want to grow from seed
+                                            or transplant, and whether you want to grow fruits or vegetables. Click submit
+                                            to find out more information about your soil type and to get planting recomendations!</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </p>
+                    </p>
+                </div>
             </div>
+
+
+
+
+
         </div>
 
-
-
-
-
-    </div>
-
-</section>
+    </section>
     <!-- //window 2 container -->
     <section class="window">
 
         <div class="container-contact100">
             <div class="wrap-contact100">
                 <form class="contact100-form validate-form">
-                    <div id="soil_level" class="form-check form-check-inline">
-                        <label class="form-check-label" for="inlineRadio1">plant from seed</label>
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" data-type="seed" value="option1">
-                       </div>
-                       <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="inlineRadio2">plant transplant</label>
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" data-type="plant" value="option2">
-                      
-                    </div>
-
+               
                     <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
                         <label class="label-input100" for="inputAddress">Address</label>
                         <input class="input100" type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
@@ -150,7 +147,6 @@
                         </div>
                     </div>
 
-
                     <div class="container-contact100-form-btn">
                         <button id="enter" class="contact100-form-btn">
                             <span>
@@ -159,6 +155,15 @@
                             </span>
                         </button>
                     </div>
+                    <div id="soil_level" class="form-check form-check-inline">
+                            <label class="form-check-label" for="inlineRadio1">plant from seed</label>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" data-type="seed" value="option1">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="inlineRadio2">plant transplant</label>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" data-type="plant" value="option2">
+    
+                        </div>
                     <span id="error_box"></span>
 
                 </form>
@@ -238,10 +243,7 @@
         </div>
     </section>
 
-        <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <!-- main JS -->
-    <script src="js/logic_2.js"></script>
+
 </body>
 
 </html>
