@@ -1,237 +1,177 @@
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>GardenHub</title>
-        <!-- viewport -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!-- main css -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-        <!--Firebase-->
-        <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <!-- //WINDOW PLUGIN -->
-        <script src="js/jquery.windows.js"></script>
-        <!-- //FIT TEXT PLUGIN -->
-        <script src="js/jquery.fittext.js"></script>
-        <!-- map plugins -->
-        <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GardenHub</title>
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- main css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- //WINDOW PLUGIN -->
+    <script src="js/jquery.windows.js"></script>
+    <!-- //FIT TEXT PLUGIN -->
+    <script src="js/jquery.fittext.js"></script>
+    <!-- map plugins -->
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
         crossorigin=""></script>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-        crossorigin=""/>
-        <!--  -->
-        <!-- main JS -->
-            <script src="js/logic.js"></script>
-            <!--===============================================================================================-->
-        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-        <!--===============================================================================================-->
-            <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
-        <!--===============================================================================================-->
-            <!-- <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css"> -->
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
-        <!--===============================================================================================-->
-            <link rel="stylesheet" type="text/css" href="css/util.css">
-            <link rel="stylesheet" type="text/css" href="css/main.css">
-        <!--===============================================================================================-->
-        
-    </head>
-    <body>
-        
-      
-                <!-- window 1 jumotron -->
-             
-                        <section class="window">
-   
-                          
-                            <div class="container-fluid text-center">    
-                                <div class="row content">
-                                <div class="col-sm-2">
-                               
-                                </div>
-                                <div class="col-sm-8 text-left"> 
-                                  <h1 class="display-12"><i class="far fa-address-card" id="responsive_headline"></i>  GardenHub</h1>
-                                  <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
-                                </div>
-                                <div class="col-sm-2">
-                        
-                                </div>
-                                </div>
-                            </div>
-                      
-            
-                        <!-- MAP -->
-                    
- 
-            
-            </section>
-        
-            <!-- //window 2 container -->
-            <section class="window">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+    <!-- main JS -->
+    <script src="js/logic_2.js"></script>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
+    <!--===============================================================================================-->
+    <!-- <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css"> -->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
 
-                	<div class="container-contact100">
-                            <div class="wrap-contact100">
-                                <form class="contact100-form validate-form">
-                                    <span class="contact100-form-title">
-                                        Contact Us
-                                    </span>
-                    
-                                    <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-                                            <label class="label-input100" for="inputAddress">Address</label>
-                                            <input class="input100" type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
-                                       
-                                    </div>
-                    
-                                    <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">
-                                            <label class="label-input100" for="inputAddress2">City</label>
-                                            <input class="input100" type="text" class="form-control" id="inputAddress2" placeholder="City">
-                                        
-                                    </div>
-                    
-                                    <div class="wrap-input100 bg1 rs1-wrap-input100">
-                                            <label class="label-input100" for="inputZip">Zip</label>
-                                            <input class="input100" type="text" class="form-control" id="inputZip">
-                                    </div>
-                    
-                                    <div class="wrap-input100 input100-select bg1">
-                                        <span class="label-input100">State *</span>
-                                        <div class="input100">
-                                                <label class="input100" for="inputState"></label>
-                                                <select class="input100" id="inputState" name="states" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option>...</option>
-                                                </select>
-                                      
-                                        </div>
-                                    </div>
-                    
-                                    
-                    
-                                       
-<!--                     
-                                    <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
-                                        <span class="label-input100">Message</span>
-                                        <textarea class="input100" name="message" placeholder="Your message here..."></textarea>
-                                    </div> -->
-                    
-                                    <div class="container-contact100-form-btn">
-                                        <button class="contact100-form-btn">
-                                            <span>
-                                                Submit
-                                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+</head>
+
+<body>
 
 
+    <!-- window 1 jumotron -->
 
-       
-                    <!-- <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="well well-sm">
-                    <form>
-                            <div class="form-row">
-        
-                            </div>
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
-                            <div class="col-md-8">
-                                <label for="inputAddress">Address</label>
-                                <input type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
-                            </div>
-                        </div>
-                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
-                        <div class="col-md-8">
-                                <label for="inputAddress2">Address 2</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                            </div>
-                            </div>
-                            <div class="form-row">
-                                    <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
-                                    <div class="col-md-8">
-                                    <label for="inputCity">City</label>
-                                    <input type="text" class="form-control" id="inputCity">
-                                </div>
-                                </div>
-                                <div class "form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputState">State</label>
-                                    <select id="inputState" name="states" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputZip">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip">
-                                </div>
-                            </div>
-                            </div>
-                            <!--grab the users plan of planting; by seed or transplat (potted plant to ground)-->
-                            <!-- <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="iplant" value="transplant">
-                                <label class="form-check-label" for="inlineRadio1">Transplant</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="seed" value="seed">
-                                <label class="form-check-label" for="inlineRadio2">Seed</label>
-                            </div>  -->
-                           
-                    <!-- </div>
+    <section class="window">
+
+
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-8 text-left">
+                    <h1 class="display-12">
+                        <i class="far fa-address-card" id="responsive_headline"></i> GardenHub</h1>
+                    <h2 id="responsive_headline">A Comprehensive Directory of Gardening.</h2>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
             </div>
-            <br>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
         </div>
-    </div>
-</div>
-</div> -->
-        
-           
-            </section>
-        <section class="window">
-            <div class="col-4" id="maps">
+
+
+        <!-- MAP -->
+
+
+
+    </section>
+
+    <!-- //window 2 container -->
+    <section class="window">
+
+        <div class="container-contact100">
+            <div class="wrap-contact100">
+                <form class="contact100-form validate-form">
+                    <div id="soil_level">
+                        <input type="radio" data-type="seed" value="seed">
+                        <input type="radio" data-type="plant" value="plant">
+                    </div>
+                    <span class="contact100-form-title">
+                        Contact Us
+                    </span>
+
+                    <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                        <label class="label-input100" for="inputAddress">Address</label>
+                        <input class="input100" type="text" class="form-control mb-2" id="street_input" placeholder="1234 Main St">
+
+                    </div>
+
+                    <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
+                        <label class="label-input100" for="inputAddress2">City</label>
+                        <input class="input100" type="text" class="form-control" id="inputCity" placeholder="City">
+
+                    </div>
+
+                    <div class="wrap-input100 bg1 rs1-wrap-input100">
+                        <label class="label-input100" for="inputZip">Zip</label>
+                        <input class="input100" type="text" class="form-control" id="inputZip">
+                    </div>
+
+                    <div class="wrap-input100 input100-select bg1">
+                        <span class="label-input100">State *</span>
+                        <div class="input100">
+                            <label class="input100" for="inputState"></label>
+                            <select class="input100" id="inputState" name="states" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="container-contact100-form-btn">
+                        <button class="contact100-form-btn">
+                            <span>
+                                Submit
+                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <input type="submit" id="address-submit" value="address submit">
+                    <input type="submit" id="use-current-location" value="use my location">
+
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+      <!-- //window 3 container -->
+    <section class="window">
+        <div class="col-4" id="maps">
             <div id="mapid" style="width: 500px; height: 500px; margin-left: 515px; margin-top: 250px;"></div>
         </div>
-                
+
 
         <script>
-        // sets map position
+            // sets map position
             var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
-        //connects to map api and retrives data/displays map
+            //connects to map api and retrives data/displays map
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
                 maxZoom: 18,
                 attribution: '',
                 id: 'mapbox.streets'
             }).addTo(mymap);
             L.marker([51.5, -0.09]).addTo(mymap)
-            .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+                .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 
             L.circle([51.508, -0.11], 500, {
                 color: 'red',
@@ -247,12 +187,68 @@
 
 
             var popup = L.popup();
-             </script>    
-           </section>
-        <section class="window">
+        </script>
+    </section>
 
+    <!-- //window 4 container -->
+    <section class="window">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Recommended Plants
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <h5>Recommended Plants</h5>
+                            <ul id="recPlants"></ul>
+                            <h5>Ideal Plants</h5>
+                            <ul id="idealPlants"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Growing Tips
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
+                            synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Soil Info
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <h5>Soil pH</h5>
+                            <p id="soilpH"></p>
+                            <h5>Soil Makeup</h5>
+                            <ul id="soilMakeup"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-            
-        
-    </body>
-    </html>
+
+</body>
+
+</html>
