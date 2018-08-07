@@ -117,18 +117,18 @@ $(document).ready(function () {
                 finalPlants(fruits);
                 console.log("finalPlants(fruits)");
             }
-            if(plantType === "veggies"){// if they selected veggies
+            else if(plantType === "veggies"){// if they selected veggies
                 checkPlants(vegetables);
                 finalPlants(vegetables);
                 console.log("finalplant - veggeis");
             }
-            else { // lets do both? can we do that...lets see
+            //else if(plant) { // lets do both? can we do that...lets see
                 //we would have to glue the two arrays together..i think
-                allDaPlants =  vegetables.concat(fruits); //combine both arrays and put it in allDaPlants array
-                console.log("this is allDaPlants " + allDaPlants);
-                checkPlants(allDaPlants);
-                finalPlants(allDaPlants);
-            }
+              //  allDaPlants =  vegetables.concat(fruits); //combine both arrays and put it in allDaPlants array
+                //console.log("this is allDaPlants " + allDaPlants);
+                //checkPlants(allDaPlants);
+                //finalPlants(allDaPlants);
+            //}
         })
     }//end of the soilGrids Ajax call
 
