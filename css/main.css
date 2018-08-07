@@ -44,8 +44,14 @@ body, html {
 }
 #accordion-resizer {
   padding: 20px;
-  width: 980px;
-  height: 250px;
+  width: auto;
+  height: 175px;
+  overflow: auto;
+}
+#accordion-resizer1 {
+  padding: 20px;
+  width: auto;
+  height: 175px;
   overflow: auto;
 }
 
@@ -175,16 +181,17 @@ iframe {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 20px;
   background: #e6e6e6;
   
 }
 
 .wrap-contact100 {
-  width: 920px;
+  width: 800px;
+  height: 600px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -201,7 +208,7 @@ iframe {
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
+  display: center;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -223,12 +230,13 @@ iframe {
 [  ]*/
 
 .wrap-input100 {
-  width: 100%;
+  width: 50%;
   position: relative;
   border: 1px solid #e6e6e6;
-  border-radius: 13px;
-  padding: 10px 30px 9px 22px;
-  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 10px 10px 9px 22px;
+  margin-bottom: 0px;
+  /* margin-top: -10px; */
 }
 
 .rs1-wrap-input100 {
@@ -244,27 +252,27 @@ iframe {
 }
 
 .input100 {
-  display: block;
+  display: inline-block;
   width: 100%;
   background: transparent;
   font-family: Montserrat-SemiBold;
   font-size: 18px;
   color: #555555;
   line-height: 1.2;
-  padding-right: 15px;
+  padding-right: 5px;
 }
 
 
 /*---------------------------------------------*/
 input.input100 {
-  height: 40px;
+  height: 15px;
 }
 
 
 textarea.input100 {
   min-height: 120px;
-  padding-top: 9px;
-  padding-bottom: 13px;
+  padding-top: 4px;
+  padding-bottom: 7px;
 }
 
 
@@ -756,16 +764,19 @@ textarea.input100 {
 }
 
 #responsive {
-  width: 100px;
+  width: auto;
   text-align: center;
 }
 /* COLORS ---------------------------------------------------------- */
 /* line 1, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
 h1 {
   font-family: BrandonText-Bold, Futura, Helvetica, Arial, sans-serif;
-  font-size: 6.0em;
+  font-size: 3.5em;
   color: #1babb7;
   text-align: center;
+  width: auto;
+  
+
 }
 
 /* line 7, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
