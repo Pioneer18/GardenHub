@@ -30,6 +30,7 @@ $(document).ready(function () {
         texture: [],
         latitude: [],
     }
+    var zone;
     var rockyMatches = [];
 
     var allDaPlants = []; //if user does not select veggies or fruits. we give em both
@@ -143,6 +144,31 @@ $(document).ready(function () {
                 checkPlants(allDaPlants);
                 finalPlants(allDaPlants);
             }
+
+            // check what zone is the Lat of the user's location
+           if(Lat >= 45 && Lat <= 50){
+               //users zone is 1-3
+               zone = "Zone 1-3";
+           }
+           if(Lat >= 40 && Lat < 45){
+               //user zone is 4-5
+               zone = "Zone 4-5";
+           }
+           if(Lat >= 35 && Lat < 40){
+               //user zone is 6-7
+               zone = "Zone 6-7";
+           }
+           if(Lat >= 30 && Lat < 35){
+               //user zone is 8
+               zone = "Zone 8";
+           }
+           if(Lat >= 25 && Lat < 30){
+               //user zone is 9-10
+               zone = "Zone 9-10";
+           }
+           $("#hardy").html(zone);
+           console.log("what's my zone though???????????????????????????????????????????????????");
+           console.log(zone);
         })
     } //end of the soilGrids Ajax call
 
@@ -157,6 +183,7 @@ $(document).ready(function () {
         finalMatches = [];
         recMatches = [];
         rockyMatches = [];
+        $("#hardy").text("");
         $("#soilMakeup").text("");
         $("#soilpH").text("");
         $("#recPlants").text("");
@@ -279,7 +306,7 @@ $(document).ready(function () {
         }
         for (var i = 0; i < rockyMatches.length; i++) {
             $("#Tips").append("<h5>" + rockyMatches[i].type + "<br>" + "</h5>" + "<br>" + rockyMatches[i].tip1 + " " + "<br>" + rockyMatches[i].tip2 + "</p>" + "<br>");
-
+        }
             //this is if there was no ideal match, display that their soil is not ideal for our plants
             if (finalMatches.length < 1) {
                 $("#idealPlants").append("Sorry, our algorithm did not find any ideal plant matches for your soil.")
@@ -299,7 +326,7 @@ $(document).ready(function () {
             console.log("recommended: " + recMatches);
             console.log("final matches: " + finalMatches);
             console.log(finalMatches[0]);
-        }}
+        }
 
         //vegetable objects
 
