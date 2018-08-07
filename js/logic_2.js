@@ -122,7 +122,20 @@ $(document).ready(function () {
     //the address submit button
     $("#enter").click(function (event) {
         event.preventDefault(); 
+        finalMatches = [];
+        recMatches = [];
+        $("#soilMakeup").text("");
+        $("#soilpH").text("");
+        $("#recPlants").text("");
+        $("#idealPlants").text("");
+
+
         googleMaps();
+        matches = {
+            pH: [],
+            texture: [],
+            latitude: [],
+        };
     });
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
