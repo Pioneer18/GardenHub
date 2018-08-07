@@ -3,7 +3,7 @@ $(document).ready(function () {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  
+
     //--------(STEP #1 Declare all the global variables)-----------------------------------------------------------------------------------------------------------
     //declaring values to be used for compatablie plant logic, used in the ajax promiset
     var pH;
@@ -19,7 +19,7 @@ $(document).ready(function () {
         texture: [],
         latitude: [],
     }
-     
+
     $('.window').windows({
         snapping: true,
         snapSpeed: 500,
@@ -38,14 +38,14 @@ $(document).ready(function () {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var Lat;  //the latitude that will be bound to the google api  
+    var Lat; //the latitude that will be bound to the google api  
     var Lon; //the longitude that will be bound to the google api response
     //--------(STEP #4 define the googleMaps function that calls the googleMaps api ajax and passes the returned lat and lon to the soilGrids api Ajax call)--------
     //google api call that will pass bind the above lat and lon and pass it to the soil api
     function googleMaps() {
         // var googleLat;  //the latitude that will be bound to the google api  
         // var googleLon; //the longitude that will be bound to the google api response
-        var street = $("#street_input").val();  //grabs the street for the goolge ajax
+        var street = $("#street_input").val(); //grabs the street for the goolge ajax
         console.log(street);
         var city = $("#inputCity").val(); //grabs the city for the google ajax
         console.log(city);
@@ -60,10 +60,10 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log("the google response");
             console.log(response);
-            Lat = (response.results[0].geometry.location.lat);//binds the google lat to the googleLat
-            Lon = (response.results[0].geometry.location.lng);//binds the google lat to the googleLon
+            Lat = (response.results[0].geometry.location.lat); //binds the google lat to the googleLat
+            Lon = (response.results[0].geometry.location.lng); //binds the google lat to the googleLon
             //call soil API function
-            restSoil();//when the googleMaps function is called passes it values to to the soil api
+            restSoil(); //when the googleMaps function is called passes it values to to the soil api
         })
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ $(document).ready(function () {
     //function for Soil API
     function restSoil() {
         //Soil API
-        var soilQueryURL = "https://rest.soilgrids.org/query?&lon=" + Lon + "&lat=" + Lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX"; 
+        var soilQueryURL = "https://rest.soilgrids.org/query?&lon=" + Lon + "&lat=" + Lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX";
         //AJAX method 
         $.ajax({
             url: soilQueryURL,
@@ -84,17 +84,17 @@ $(document).ready(function () {
 
             console.log(response);
             //storing soil data in variables
-            var pull = response.properties;  //shortens the commands to grab variables from the response object
+            var pull = response.properties; //shortens the commands to grab variables from the response object
 
             //NOTE: all the pulls end with depth, this is so we get the value at the same depth that the user specified (either sl1 or sl4 for now; see lines 39-47)
 
-            pH = pull.PHIHOX.M.sl1;  //grabs the soil ph
-            pH = pH / 10;  //pushes the decimal on returned ph value to the left (e.g. 55 becomes 5.5)
+            pH = pull.PHIHOX.M.sl1; //grabs the soil ph
+            pH = pH / 10; //pushes the decimal on returned ph value to the left (e.g. 55 becomes 5.5)
             //Write soil pH to HTML 
             $("#soilpH").html(pH);
-            sand = pull.SNDPPT.M.sl1;  //pulls the sand percentage of the soil
-            silt = pull.SLTPPT.M.sl1;  //pulls the silt percentage of the soil
-            clay = pull.CLYPPT.M.sl1;  //pulls the clay percentage of the soil
+            sand = pull.SNDPPT.M.sl1; //pulls the sand percentage of the soil
+            silt = pull.SLTPPT.M.sl1; //pulls the silt percentage of the soil
+            clay = pull.CLYPPT.M.sl1; //pulls the clay percentage of the soil
             //Write soil makeup to HTML 
             $("#soilMakeup").append("<li>" + "Sand: " + sand + "%</li>"); //appending the sand percentage to the html
             $("#soilMakeup").append("<li>" + "Silt: " + silt + "%</li>"); //appending the silt percentage to the html
@@ -113,7 +113,7 @@ $(document).ready(function () {
             checkPlants(fruits);
             finalPlants(fruits);
         })
-    }//end of the soilGrids Ajax call
+    } //end of the soilGrids Ajax call
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
 
     //the address submit button
     $("#enter").click(function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         finalMatches = [];
         recMatches = [];
         $("#soilMakeup").text("");
@@ -173,7 +173,7 @@ $(document).ready(function () {
         parseInt(loamSand);
         console.log("if <= 5 sand match loam levels " + loamSand);
         var loamSilt = 40 - silt;
-        parseInt( loamSilt);
+        parseInt(loamSilt);
         console.log(" if <= 5 silt match loam levels " + loamSilt);
         var loamClay = 20 - clay;
         parseInt(loamClay);
@@ -181,8 +181,7 @@ $(document).ready(function () {
         if ((loamSand >= -10 && loamSand <= 10) && (loamSilt >= -10 && loamSilt <= 10) && (loamClay >= -10 && loamClay <= 10)) {
             soilType = "loam";
             console.log(soilType);
-        }
-        else {
+        } else {
             parseInt(sand);
             parseInt(silt);
             parseInt(clay);
@@ -192,11 +191,9 @@ $(document).ready(function () {
             //determine if soil type is sandy, silt, or clay
             if (high = sand) {
                 soilType = "sandy"
-            }
-            else if (high = silt) {
+            } else if (high = silt) {
                 soilType = "silt"
-            }
-            else if (high = clay) {
+            } else if (high = clay) {
                 soilType = "clay"
             }
         }
@@ -230,11 +227,16 @@ $(document).ready(function () {
             if (count === 3) {
 
                 $("#idealPlants").append("<li>" + plantArray[i].type + "</li>")
-                finalMatches.push(plantArray[i].type);
+                finalMatches.push(plantArray[i]);
+                count = 0;
+                $("#tips").append("<p>" + finalMatches[0].tip1 + " " + finalMatches[0].tip2 + "</p>");
+
+            } else {
                 count = 0;
             }
-            else { count = 0; }
             count = 0;
+
+
         }
         console.log("recommended: " + recMatches);
         console.log("final matches: " + finalMatches);
@@ -243,177 +245,359 @@ $(document).ready(function () {
     //vegetable objects
 
     var vegetables = [{
-        type: "tomato",
-        pH: [5.5, 7.5],
-        texture: ["sandy", "loam"],
-        latitude: [25, 40]
-    },
-    {
-        type: "cucumber",
-        pH: [5.5, 7.0],
-        texture: ["sandy", "loam"],
-        latitude: [25, 40]
-    },
-    {
-        type: "lettuce",
-        pH: [6.0, 7.0],
-        texture: ["sandy", "loam"],
-        latitude: [25, 45]
-    },
-    {
-        type: "kale",
-        pH: [6.0, 7.5],
-        texture: "loam",
-        latitude: [25, 35]
-    },
-    {
-        type: "okra",
-        pH: [6.0, 7.0],
-        texture: ["sandy", "loam"],
-        latitude: [25, 40]
-    },
-    {
-        type: "potato",
-        pH: [6.0, 6.5],
-        texture: "loam",
-        latitude: [25, 45]
-    },
-    {
-        type: "squash",
-        pH: [5.5, 6.8],
-        texture: ["clay", "sandy"],
-        latitude: [25, 45]
-    },
-    {
-        type: "asparagus",
-        pH: [6.5, 7.0],
-        texture: "loam",
-        latitude: [25, 45]
-    },
-    {
-        type: "carrot",
-        pH: [5.5, 7.5],
-        texture: ["sandy", "loam", "silt"],
-        latitude: [30, 45]
-    }]
+            type: "tomato",
+            pH: [5.5, 7.5],
+            texture: ["sandy", "loam"],
+            latitude: [25, 40]
+        },
+        {
+            type: "cucumber",
+            pH: [5.5, 7.0],
+            texture: ["sandy", "loam"],
+            latitude: [25, 40]
+        },
+        {
+            type: "lettuce",
+            pH: [6.0, 7.0],
+            texture: ["sandy", "loam"],
+            latitude: [25, 45]
+        },
+        {
+            type: "kale",
+            pH: [6.0, 7.5],
+            texture: "loam",
+            latitude: [25, 35]
+        },
+        {
+            type: "okra",
+            pH: [6.0, 7.0],
+            texture: ["sandy", "loam"],
+            latitude: [25, 40]
+        },
+        {
+            type: "potato",
+            pH: [6.0, 6.5],
+            texture: "loam",
+            latitude: [25, 45]
+        },
+        {
+            type: "squash",
+            pH: [5.5, 6.8],
+            texture: ["clay", "sandy"],
+            latitude: [25, 45]
+        },
+        {
+            type: "asparagus",
+            pH: [6.5, 7.0],
+            texture: "loam",
+            latitude: [25, 45]
+        },
+        {
+            type: "carrot",
+            pH: [5.5, 7.5],
+            texture: ["sandy", "loam", "silt"],
+            latitude: [30, 45]
+        }
+    ]
 
     //fruits Objects
 
     var fruits = [{
-        type: "watermelon",
-        pH: [6.0, 6.8],
-        texture: ["sandy", "loam"],
-        latitude: [25, 45],
-    },
-    {
-        type: "strawberry",
-        pH: [5.5, 6.5],
-        texture: "sandy",
-        latitude: [25, 45]
-    },
-    {
-        type: "pineapple",
-        pH: [4.5, 6.5],
-        texture: ["sandy", "loam", "clay"],
-        latitude: [25, 30]
-    },
-    {
-        type: "blackberry",
-        pH: [5.5, 7.0],
-        texture: ["sandy", "loam"],
-        latitude: [25, 45]
-    },
-    {
-        type: "orange",
-        pH: [6.0, 7.5],
-        texture: "loam",
-        latitude: [25, 30]
-    },
-    {
-        type: "pear",
-        pH: [6.0, 6.5],
-        texture: ["sandy", "loam"],
-        latitude: [25, 45]
-    },
-    {
-        type: "cherry",
-        pH: [6.0, 6.5],
-        texture: ["silt", "clay", "sandy", "loam"],
-        latitude: [30, 45]
-    },
-    {
-        type: "plum",
-        pH: [5.5, 6.5],
-        texture: ["sandy", "clay", "loam"],
-        latitude: [30, 45]
-    },
-    {
-        type: "fig",
-        pH: [6.0, 6.5],
-        texture: ["sandy", "loam", "clay"],
-        latitude: [25, 35]
-    }]
+            type: "watermelon",
+            pH: [6.0, 6.8],
+            texture: ["sandy", "loam"],
+            latitude: [25, 45],
+        },
+        {
+            type: "strawberry",
+            pH: [5.5, 6.5],
+            texture: "sandy",
+            latitude: [25, 45]
+        },
+        {
+            type: "pineapple",
+            pH: [4.5, 6.5],
+            texture: ["sandy", "loam", "clay"],
+            latitude: [25, 30],
+            tip1: ["When growing pineapple tops, you’ll need to provide at least six hours of bright light. Water your plant as needed, allowing it to dry out some between watering. You can also fertilize the pineapple plant with a soluble houseplant fertilizer once or twice a month during spring and summer."],
+            tip2: ["Keep it moist until roots develop. It should take about two months (6-8 weeks) for roots to establish. You can check for rooting by gently pulling the top to see the roots. Once significant root growth has occurred, you can start giving the plant additional light. "]
 
-    var usStates = [
-        { name: 'ALABAMA', abbreviation: 'AL' },
-        { name: 'ALASKA', abbreviation: 'AK' },
-        { name: 'AMERICAN SAMOA', abbreviation: 'AS' },
-        { name: 'ARIZONA', abbreviation: 'AZ' },
-        { name: 'ARKANSAS', abbreviation: 'AR' },
-        { name: 'CALIFORNIA', abbreviation: 'CA' },
-        { name: 'COLORADO', abbreviation: 'CO' },
-        { name: 'CONNECTICUT', abbreviation: 'CT' },
-        { name: 'DELAWARE', abbreviation: 'DE' },
-        { name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC' },
-        { name: 'FEDERATED STATES OF MICRONESIA', abbreviation: 'FM' },
-        { name: 'FLORIDA', abbreviation: 'FL' },
-        { name: 'GEORGIA', abbreviation: 'GA' },
-        { name: 'GUAM', abbreviation: 'GU' },
-        { name: 'HAWAII', abbreviation: 'HI' },
-        { name: 'IDAHO', abbreviation: 'ID' },
-        { name: 'ILLINOIS', abbreviation: 'IL' },
-        { name: 'INDIANA', abbreviation: 'IN' },
-        { name: 'IOWA', abbreviation: 'IA' },
-        { name: 'KANSAS', abbreviation: 'KS' },
-        { name: 'KENTUCKY', abbreviation: 'KY' },
-        { name: 'LOUISIANA', abbreviation: 'LA' },
-        { name: 'MAINE', abbreviation: 'ME' },
-        { name: 'MARSHALL ISLANDS', abbreviation: 'MH' },
-        { name: 'MARYLAND', abbreviation: 'MD' },
-        { name: 'MASSACHUSETTS', abbreviation: 'MA' },
-        { name: 'MICHIGAN', abbreviation: 'MI' },
-        { name: 'MINNESOTA', abbreviation: 'MN' },
-        { name: 'MISSISSIPPI', abbreviation: 'MS' },
-        { name: 'MISSOURI', abbreviation: 'MO' },
-        { name: 'MONTANA', abbreviation: 'MT' },
-        { name: 'NEBRASKA', abbreviation: 'NE' },
-        { name: 'NEVADA', abbreviation: 'NV' },
-        { name: 'NEW HAMPSHIRE', abbreviation: 'NH' },
-        { name: 'NEW JERSEY', abbreviation: 'NJ' },
-        { name: 'NEW MEXICO', abbreviation: 'NM' },
-        { name: 'NEW YORK', abbreviation: 'NY' },
-        { name: 'NORTH CAROLINA', abbreviation: 'NC' },
-        { name: 'NORTH DAKOTA', abbreviation: 'ND' },
-        { name: 'NORTHERN MARIANA ISLANDS', abbreviation: 'MP' },
-        { name: 'OHIO', abbreviation: 'OH' },
-        { name: 'OKLAHOMA', abbreviation: 'OK' },
-        { name: 'OREGON', abbreviation: 'OR' },
-        { name: 'PALAU', abbreviation: 'PW' },
-        { name: 'PENNSYLVANIA', abbreviation: 'PA' },
-        { name: 'PUERTO RICO', abbreviation: 'PR' },
-        { name: 'RHODE ISLAND', abbreviation: 'RI' },
-        { name: 'SOUTH CAROLINA', abbreviation: 'SC' },
-        { name: 'SOUTH DAKOTA', abbreviation: 'SD' },
-        { name: 'TENNESSEE', abbreviation: 'TN' },
-        { name: 'TEXAS', abbreviation: 'TX' },
-        { name: 'UTAH', abbreviation: 'UT' },
-        { name: 'VERMONT', abbreviation: 'VT' },
-        { name: 'VIRGIN ISLANDS', abbreviation: 'VI' },
-        { name: 'VIRGINIA', abbreviation: 'VA' },
-        { name: 'WASHINGTON', abbreviation: 'WA' },
-        { name: 'WEST VIRGINIA', abbreviation: 'WV' },
-        { name: 'WISCONSIN', abbreviation: 'WI' },
-        { name: 'WYOMING', abbreviation: 'WY' }
+        },
+        {
+            type: "blackberry",
+            pH: [5.5, 7.0],
+            texture: ["sandy", "loam"],
+            latitude: [25, 45]
+        },
+        {
+            type: "orange",
+            pH: [6.0, 7.5],
+            texture: "loam",
+            latitude: [25, 30]
+        },
+        {
+            type: "pear",
+            pH: [6.0, 6.5],
+            texture: ["sandy", "loam"],
+            latitude: [25, 45]
+        },
+        {
+            type: "cherry",
+            pH: [6.0, 6.5],
+            texture: ["silt", "clay", "sandy", "loam"],
+            latitude: [30, 45]
+        },
+        {
+            type: "plum",
+            pH: [5.5, 6.5],
+            texture: ["sandy", "clay", "loam"],
+            latitude: [30, 45]
+        },
+        {
+            type: "fig",
+            pH: [6.0, 6.5],
+            texture: ["sandy", "loam", "clay"],
+            latitude: [25, 35]
+        }
+    ]
+
+
+    var usStates = [{
+            name: 'ALABAMA',
+            abbreviation: 'AL'
+        },
+        {
+            name: 'ALASKA',
+            abbreviation: 'AK'
+        },
+        {
+            name: 'AMERICAN SAMOA',
+            abbreviation: 'AS'
+        },
+        {
+            name: 'ARIZONA',
+            abbreviation: 'AZ'
+        },
+        {
+            name: 'ARKANSAS',
+            abbreviation: 'AR'
+        },
+        {
+            name: 'CALIFORNIA',
+            abbreviation: 'CA'
+        },
+        {
+            name: 'COLORADO',
+            abbreviation: 'CO'
+        },
+        {
+            name: 'CONNECTICUT',
+            abbreviation: 'CT'
+        },
+        {
+            name: 'DELAWARE',
+            abbreviation: 'DE'
+        },
+        {
+            name: 'DISTRICT OF COLUMBIA',
+            abbreviation: 'DC'
+        },
+        {
+            name: 'FEDERATED STATES OF MICRONESIA',
+            abbreviation: 'FM'
+        },
+        {
+            name: 'FLORIDA',
+            abbreviation: 'FL'
+        },
+        {
+            name: 'GEORGIA',
+            abbreviation: 'GA'
+        },
+        {
+            name: 'GUAM',
+            abbreviation: 'GU'
+        },
+        {
+            name: 'HAWAII',
+            abbreviation: 'HI'
+        },
+        {
+            name: 'IDAHO',
+            abbreviation: 'ID'
+        },
+        {
+            name: 'ILLINOIS',
+            abbreviation: 'IL'
+        },
+        {
+            name: 'INDIANA',
+            abbreviation: 'IN'
+        },
+        {
+            name: 'IOWA',
+            abbreviation: 'IA'
+        },
+        {
+            name: 'KANSAS',
+            abbreviation: 'KS'
+        },
+        {
+            name: 'KENTUCKY',
+            abbreviation: 'KY'
+        },
+        {
+            name: 'LOUISIANA',
+            abbreviation: 'LA'
+        },
+        {
+            name: 'MAINE',
+            abbreviation: 'ME'
+        },
+        {
+            name: 'MARSHALL ISLANDS',
+            abbreviation: 'MH'
+        },
+        {
+            name: 'MARYLAND',
+            abbreviation: 'MD'
+        },
+        {
+            name: 'MASSACHUSETTS',
+            abbreviation: 'MA'
+        },
+        {
+            name: 'MICHIGAN',
+            abbreviation: 'MI'
+        },
+        {
+            name: 'MINNESOTA',
+            abbreviation: 'MN'
+        },
+        {
+            name: 'MISSISSIPPI',
+            abbreviation: 'MS'
+        },
+        {
+            name: 'MISSOURI',
+            abbreviation: 'MO'
+        },
+        {
+            name: 'MONTANA',
+            abbreviation: 'MT'
+        },
+        {
+            name: 'NEBRASKA',
+            abbreviation: 'NE'
+        },
+        {
+            name: 'NEVADA',
+            abbreviation: 'NV'
+        },
+        {
+            name: 'NEW HAMPSHIRE',
+            abbreviation: 'NH'
+        },
+        {
+            name: 'NEW JERSEY',
+            abbreviation: 'NJ'
+        },
+        {
+            name: 'NEW MEXICO',
+            abbreviation: 'NM'
+        },
+        {
+            name: 'NEW YORK',
+            abbreviation: 'NY'
+        },
+        {
+            name: 'NORTH CAROLINA',
+            abbreviation: 'NC'
+        },
+        {
+            name: 'NORTH DAKOTA',
+            abbreviation: 'ND'
+        },
+        {
+            name: 'NORTHERN MARIANA ISLANDS',
+            abbreviation: 'MP'
+        },
+        {
+            name: 'OHIO',
+            abbreviation: 'OH'
+        },
+        {
+            name: 'OKLAHOMA',
+            abbreviation: 'OK'
+        },
+        {
+            name: 'OREGON',
+            abbreviation: 'OR'
+        },
+        {
+            name: 'PALAU',
+            abbreviation: 'PW'
+        },
+        {
+            name: 'PENNSYLVANIA',
+            abbreviation: 'PA'
+        },
+        {
+            name: 'PUERTO RICO',
+            abbreviation: 'PR'
+        },
+        {
+            name: 'RHODE ISLAND',
+            abbreviation: 'RI'
+        },
+        {
+            name: 'SOUTH CAROLINA',
+            abbreviation: 'SC'
+        },
+        {
+            name: 'SOUTH DAKOTA',
+            abbreviation: 'SD'
+        },
+        {
+            name: 'TENNESSEE',
+            abbreviation: 'TN'
+        },
+        {
+            name: 'TEXAS',
+            abbreviation: 'TX'
+        },
+        {
+            name: 'UTAH',
+            abbreviation: 'UT'
+        },
+        {
+            name: 'VERMONT',
+            abbreviation: 'VT'
+        },
+        {
+            name: 'VIRGIN ISLANDS',
+            abbreviation: 'VI'
+        },
+        {
+            name: 'VIRGINIA',
+            abbreviation: 'VA'
+        },
+        {
+            name: 'WASHINGTON',
+            abbreviation: 'WA'
+        },
+        {
+            name: 'WEST VIRGINIA',
+            abbreviation: 'WV'
+        },
+        {
+            name: 'WISCONSIN',
+            abbreviation: 'WI'
+        },
+        {
+            name: 'WYOMING',
+            abbreviation: 'WY'
+        }
     ];
     for (var i = 0; i < usStates.length; i++) {
         var option = document.createElement("option");
@@ -421,5 +605,6 @@ $(document).ready(function () {
         option.value = usStates[i].abbreviation;
         inputState.add(option);
     }
+
 
 });
