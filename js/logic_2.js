@@ -262,6 +262,10 @@ $(document).ready(function () {
             else { count = 0; }
             count = 0;
         }
+        //this is if there was no ideal match, display that their soil is not ideal for our plants
+        if(finalMatches.length < 1){
+            $("#idealPlants").append("Sorry, our algorithm did not find any ideal plant matches for your soil.")
+        }
         console.log("recommended: " + recMatches);
         console.log("final matches: " + finalMatches);
         console.log(finalMatches[0]);
