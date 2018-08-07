@@ -2,8 +2,6 @@ $(document).ready(function () {
     console.log("ready!");
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
     //--------(STEP #1 Declare all the global variables)-----------------------------------------------------------------------------------------------------------
     //declaring values to be used for compatablie plant logic, used in the ajax promiset
     var pH;
@@ -20,6 +18,8 @@ $(document).ready(function () {
         latitude: [],
     }
 
+    var allDaPlants = []; //if user does not select veggies or fruits. we give em both
+     
     $('.window').windows({
         snapping: true,
         snapSpeed: 500,
@@ -34,14 +34,18 @@ $(document).ready(function () {
             // when new window ($el) enters viewport
         }
     });
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     var Lat; //the latitude that will be bound to the google api  
     var Lon; //the longitude that will be bound to the google api response
+
     //--------(STEP #4 define the googleMaps function that calls the googleMaps api ajax and passes the returned lat and lon to the soilGrids api Ajax call)--------
     //google api call that will pass bind the above lat and lon and pass it to the soil api
+    
+    var Lat;  //the latitude that will be bound to the google api  
+    var Lon; //the longitude that will be bound to the google api response
+
     function googleMaps() {
         // var googleLat;  //the latitude that will be bound to the google api  
         // var googleLon; //the longitude that will be bound to the google api response
@@ -66,6 +70,7 @@ $(document).ready(function () {
             restSoil(); //when the googleMaps function is called passes it values to to the soil api
         })
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //--------(STEP #5 define the restSoil() to call the soilGrids api Ajax; it has lat and lon paramaters to accept from google or the instant geolocation)-------
@@ -108,10 +113,27 @@ $(document).ready(function () {
             checkSoil();
 
             //Depending on user input, run the functions with 'vegetables' or 'fruits'
-            //  checkPlants(vegetables);
-            //  finalPlants(vegetables);
-            checkPlants(fruits);
-            finalPlants(fruits);
+
+            // checkPlants(vegetables);
+            // finalPlants(vegetables);
+            //decide to use veggie objects or plant objects
+            if(plantType === "fruits"){ //if user selected fruits
+                checkPlants(fruits);
+                finalPlants(fruits);
+                console.log("finalPlants(fruits)");
+            }
+            else if(plantType === "veggies"){// if they selected veggies
+                checkPlants(vegetables);
+                finalPlants(vegetables);
+                console.log("finalplant - veggeis");
+            }
+            else if(plantType === "nope") { // lets do both? can we do that...lets see
+                //we would have to glue the two arrays together..i think
+                allDaPlants =  vegetables.concat(fruits); //combine both arrays and put it in allDaPlants array
+                console.log("this is allDaPlants " + allDaPlants);
+                checkPlants(allDaPlants);
+                finalPlants(allDaPlants);
+            }
         })
     } //end of the soilGrids Ajax call
 
@@ -122,14 +144,14 @@ $(document).ready(function () {
     //the address submit button
     $("#enter").click(function (event) {
         event.preventDefault();
+        //clear the results in the html before we add more
         finalMatches = [];
         recMatches = [];
         $("#soilMakeup").text("");
         $("#soilpH").text("");
         $("#recPlants").text("");
         $("#idealPlants").text("");
-
-
+        //call the google maps which will also call the soil api, ultimately adding results to the html (agian)
         googleMaps();
         matches = {
             pH: [],
@@ -137,6 +159,15 @@ $(document).ready(function () {
             latitude: [],
         };
     });
+
+    var plantType = "nope"; //declare plant type globally so it can be used outside the onclick - think this is neccessary
+    $(".form-check-input").on("click", function (event){
+        //event.preventDefault(); //not needed because this is not a sumbit type button
+        temp = event.target;
+        plantType = $(temp).attr("data-type");
+        console.log(plantType);
+    })
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -227,11 +258,12 @@ $(document).ready(function () {
             if (count === 3) {
 
                 $("#idealPlants").append("<li>" + plantArray[i].type + "</li>")
-                finalMatches.push(plantArray[i]);
+                finalMatches.push(plantArray[i].type);
                 count = 0;
             } else {
                 
                 count = 0;
+
             }
             count = 0;
         }
@@ -239,9 +271,15 @@ $(document).ready(function () {
         for(var i=0; i < finalMatches.length;i++ ){
             $("#Tips").append("<h5>" + finalMatches[i].type + "<br>" + "</h5>"  + "<br>" + finalMatches[i].tip1 + " "  + "<br>" + finalMatches[i].tip2 + "</p>" + "<br>");
 
+
+        //this is if there was no ideal match, display that their soil is not ideal for our plants
+        if(finalMatches.length < 1){
+            $("#idealPlants").append("Sorry, our algorithm did not find any ideal plant matches for your soil.")
+
         }
         console.log("recommended: " + recMatches);
         console.log("final matches: " + finalMatches);
+        console.log(finalMatches[0]);
     }
 
     //vegetable objects
@@ -636,6 +674,7 @@ $(document).ready(function () {
             name: 'WYOMING',
             abbreviation: 'WY'
         }
+
     ];
     for (var i = 0; i < usStates.length; i++) {
         var option = document.createElement("option");
