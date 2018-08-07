@@ -224,14 +224,15 @@ $(document).ready(function () {
             //Checks which plants meet 2 out of 3 requirements 
             if (count >= 2) {
                 $("#recPlants").append("<li>" + plantArray[i].type + "</li>")
-                recMatches.push(plantArray[i].type);
+                recMatches.push(plantArray[i]);
             }
             //Checks which plants meet 3 out of 3 requirements 
             if (count === 3) {
 
                 $("#idealPlants").append("<li>" + plantArray[i].type + "</li>")
-                finalMatches.push(plantArray[i].type);
+                finalMatches.push(plantArray[i]);
                 count = 0;
+                $("#Tips").append("<p>" + finalMatches[0].tip1 + " " + finalMatches[0].tip2 + "</p>");
             }
             else { count = 0; }
             count = 0;
@@ -315,7 +316,10 @@ $(document).ready(function () {
         type: "pineapple",
         pH: [4.5, 6.5],
         texture: ["sandy", "loam", "clay"],
-        latitude: [25, 30]
+        latitude: [25, 30],
+        tip1: ["When growing pineapple tops, you’ll need to provide at least six hours of bright light. Water your plant as needed, allowing it to dry out some between watering. You can also fertilize the pineapple plant with a soluble houseplant fertilizer once or twice a month during spring and summer."],
+            tip2: ["Keep it moist until roots develop. It should take about two months (6-8 weeks) for roots to establish. You can check for rooting by gently pulling the top to see the roots. Once significant root growth has occurred, you can start giving the plant additional light. "]
+
     },
     {
         type: "blackberry",
