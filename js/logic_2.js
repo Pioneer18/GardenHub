@@ -1,8 +1,6 @@
 $(document).ready(function () {
     console.log("ready!");
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
   
     //--------(STEP #1 Declare all the global variables)-----------------------------------------------------------------------------------------------------------
     //declaring values to be used for compatablie plant logic, used in the ajax promiset
@@ -19,6 +17,7 @@ $(document).ready(function () {
         texture: [],
         latitude: [],
     }
+    var allDaPlants = []; //if user does not select veggies or fruits. we give em both
      
     $('.window').windows({
         snapping: true,
@@ -34,14 +33,15 @@ $(document).ready(function () {
             // when new window ($el) enters viewport
         }
     });
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var Lat;  //the latitude that will be bound to the google api  
-    var Lon; //the longitude that will be bound to the google api response
+
     //--------(STEP #4 define the googleMaps function that calls the googleMaps api ajax and passes the returned lat and lon to the soilGrids api Ajax call)--------
     //google api call that will pass bind the above lat and lon and pass it to the soil api
+    
+    var Lat;  //the latitude that will be bound to the google api  
+    var Lon; //the longitude that will be bound to the google api response
+
     function googleMaps() {
         // var googleLat;  //the latitude that will be bound to the google api  
         // var googleLon; //the longitude that will be bound to the google api response
@@ -66,6 +66,7 @@ $(document).ready(function () {
             restSoil();//when the googleMaps function is called passes it values to to the soil api
         })
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //--------(STEP #5 define the restSoil() to call the soilGrids api Ajax; it has lat and lon paramaters to accept from google or the instant geolocation)-------
@@ -110,8 +111,24 @@ $(document).ready(function () {
             //Depending on user input, run the functions with 'vegetables' or 'fruits'
             // checkPlants(vegetables);
             // finalPlants(vegetables);
-            checkPlants(fruits);
-            finalPlants(fruits);
+            //decide to use veggie objects or plant objects
+            if(plantType === "fruits"){ //if user selected fruits
+                checkPlants(fruits);
+                finalPlants(fruits);
+                console.log("finalPlants(fruits)");
+            }
+            if(plantType === "veggies"){// if they selected veggies
+                checkPlants(vegetables);
+                finalPlants(vegetables);
+                console.log("finalplant - veggeis");
+            }
+            else { // lets do both? can we do that...lets see
+                //we would have to glue the two arrays together..i think
+                allDaPlants =  vegetables.concat(fruits); //combine both arrays and put it in allDaPlants array
+                console.log("this is allDaPlants " + allDaPlants);
+                checkPlants(allDaPlants);
+                finalPlants(allDaPlants);
+            }
         })
     }//end of the soilGrids Ajax call
 
@@ -121,15 +138,15 @@ $(document).ready(function () {
 
     //the address submit button
     $("#enter").click(function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
+        //clear the results in the html before we add more
         finalMatches = [];
         recMatches = [];
         $("#soilMakeup").text("");
         $("#soilpH").text("");
         $("#recPlants").text("");
         $("#idealPlants").text("");
-
-
+        //call the google maps which will also call the soil api, ultimately adding results to the html (agian)
         googleMaps();
         matches = {
             pH: [],
@@ -137,6 +154,15 @@ $(document).ready(function () {
             latitude: [],
         };
     });
+
+    var plantType//declare plant type globally so it can be used outside the onclick - think this is neccessary
+    $(".form-check-input").on("click", function (event){
+        //event.preventDefault(); //not needed because this is not a sumbit type button
+        temp = event.target;
+        plantType = $(temp).attr("data-type");
+        console.log(plantType);
+    })
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -224,21 +250,21 @@ $(document).ready(function () {
             //Checks which plants meet 2 out of 3 requirements 
             if (count >= 2) {
                 $("#recPlants").append("<li>" + plantArray[i].type + "</li>")
-                recMatches.push(plantArray[i]);
+                recMatches.push(plantArray[i].type);
             }
             //Checks which plants meet 3 out of 3 requirements 
             if (count === 3) {
 
                 $("#idealPlants").append("<li>" + plantArray[i].type + "</li>")
-                finalMatches.push(plantArray[i]);
+                finalMatches.push(plantArray[i].type);
                 count = 0;
-                $("#Tips").append("<p>" + finalMatches[0].tip1 + " " + finalMatches[0].tip2 + "</p>");
             }
             else { count = 0; }
             count = 0;
         }
         console.log("recommended: " + recMatches);
         console.log("final matches: " + finalMatches);
+        console.log(finalMatches[0]);
     }
 
     //vegetable objects
@@ -316,10 +342,7 @@ $(document).ready(function () {
         type: "pineapple",
         pH: [4.5, 6.5],
         texture: ["sandy", "loam", "clay"],
-        latitude: [25, 30],
-        tip1: ["When growing pineapple tops, you’ll need to provide at least six hours of bright light. Water your plant as needed, allowing it to dry out some between watering. You can also fertilize the pineapple plant with a soluble houseplant fertilizer once or twice a month during spring and summer."],
-            tip2: ["Keep it moist until roots develop. It should take about two months (6-8 weeks) for roots to establish. You can check for rooting by gently pulling the top to see the roots. Once significant root growth has occurred, you can start giving the plant additional light. "]
-
+        latitude: [25, 30]
     },
     {
         type: "blackberry",
