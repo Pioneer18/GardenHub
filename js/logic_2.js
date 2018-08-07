@@ -122,13 +122,13 @@ $(document).ready(function () {
                 finalPlants(vegetables);
                 console.log("finalplant - veggeis");
             }
-            //else if(plant) { // lets do both? can we do that...lets see
+            else if(plantType === "nope") { // lets do both? can we do that...lets see
                 //we would have to glue the two arrays together..i think
-              //  allDaPlants =  vegetables.concat(fruits); //combine both arrays and put it in allDaPlants array
-                //console.log("this is allDaPlants " + allDaPlants);
-                //checkPlants(allDaPlants);
-                //finalPlants(allDaPlants);
-            //}
+                allDaPlants =  vegetables.concat(fruits); //combine both arrays and put it in allDaPlants array
+                console.log("this is allDaPlants " + allDaPlants);
+                checkPlants(allDaPlants);
+                finalPlants(allDaPlants);
+            }
         })
     }//end of the soilGrids Ajax call
 
@@ -155,7 +155,7 @@ $(document).ready(function () {
         };
     });
 
-    var plantType//declare plant type globally so it can be used outside the onclick - think this is neccessary
+    var plantType = "nope"; //declare plant type globally so it can be used outside the onclick - think this is neccessary
     $(".form-check-input").on("click", function (event){
         //event.preventDefault(); //not needed because this is not a sumbit type button
         temp = event.target;
