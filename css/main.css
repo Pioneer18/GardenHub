@@ -1030,6 +1030,9 @@ html, body {
   margin: 0;
   padding: 0;
 }
+#buttonRadio{
+  margin-left: 4px;
+}
 
 /* line 11, ../scss/main.scss */
 .window {
@@ -1041,7 +1044,8 @@ html, body {
 /* line 18, ../scss/main.scss */
 .window:nth-child(1) {
   background-image: url("../images/background1.jpeg");
-
+  background-repeat: no-repeat;
+  background-size: cover;
   top: 0%;
 }
 
@@ -1053,7 +1057,7 @@ html, body {
 
 /* line 18, ../scss/main.scss */
 .window:nth-child(3) {
-  background: #333a3e;
+  background: #492c2c;
   top: 200%;
 }
 
