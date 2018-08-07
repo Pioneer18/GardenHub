@@ -1,7 +1,7 @@
 $(document).ready(function () {
     console.log("ready!");
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ 
     //--------(STEP #1 Declare all the global variables)-----------------------------------------------------------------------------------------------------------
     //declaring values to be used for compatablie plant logic, used in the ajax promiset
     var pH;
@@ -17,7 +17,7 @@ $(document).ready(function () {
         texture: [],
         latitude: [],
     }
-
+ 
     var allDaPlants = []; //if user does not select veggies or fruits. we give em both
      
     $('.window').windows({
@@ -34,18 +34,18 @@ $(document).ready(function () {
             // when new window ($el) enters viewport
         }
     });
-
+ 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ 
     var Lat; //the latitude that will be bound to the google api  
     var Lon; //the longitude that will be bound to the google api response
-
+ 
     //--------(STEP #4 define the googleMaps function that calls the googleMaps api ajax and passes the returned lat and lon to the soilGrids api Ajax call)--------
     //google api call that will pass bind the above lat and lon and pass it to the soil api
-    
+   
     var Lat;  //the latitude that will be bound to the google api  
     var Lon; //the longitude that will be bound to the google api response
-
+ 
     function googleMaps() {
         // var googleLat;  //the latitude that will be bound to the google api  
         // var googleLon; //the longitude that will be bound to the google api response
@@ -70,37 +70,37 @@ $(document).ready(function () {
             restSoil(); //when the googleMaps function is called passes it values to to the soil api
         })
     }
-
+ 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ 
     //--------(STEP #5 define the restSoil() to call the soilGrids api Ajax; it has lat and lon paramaters to accept from google or the instant geolocation)-------
     //function for Soil API
     function restSoil() {
         //Soil API
         var soilQueryURL = "https://rest.soilgrids.org/query?&lon=" + Lon + "&lat=" + Lat + "&attributes=BLDFIE,CLYPPT,SLTPPT,SNDPPT,CRFVOL,CECSOL,PHIHOX";
-        //AJAX method 
+        //AJAX method
         $.ajax({
             url: soilQueryURL,
             method: "GET"
             //promise event
         }).then(function (response) { //this is the promise that holds the core logic that determines what grows in this location
-
+ 
             //---------------------(this pull the values out of the object)----------------------------
-
+ 
             console.log(response);
             //storing soil data in variables
             var pull = response.properties; //shortens the commands to grab variables from the response object
-
+ 
             //NOTE: all the pulls end with depth, this is so we get the value at the same depth that the user specified (either sl1 or sl4 for now; see lines 39-47)
-
+ 
             pH = pull.PHIHOX.M.sl1; //grabs the soil ph
             pH = pH / 10; //pushes the decimal on returned ph value to the left (e.g. 55 becomes 5.5)
-            //Write soil pH to HTML 
+            //Write soil pH to HTML
             $("#soilpH").html(pH);
             sand = pull.SNDPPT.M.sl1; //pulls the sand percentage of the soil
             silt = pull.SLTPPT.M.sl1; //pulls the silt percentage of the soil
             clay = pull.CLYPPT.M.sl1; //pulls the clay percentage of the soil
-            //Write soil makeup to HTML 
+            //Write soil makeup to HTML
             $("#soilMakeup").append("<li>" + "Sand: " + sand + "%</li>"); //appending the sand percentage to the html
             $("#soilMakeup").append("<li>" + "Silt: " + silt + "%</li>"); //appending the silt percentage to the html
             $("#soilMakeup").append("<li>" + "Clay: " + clay + "%</li>"); //appending the clay percentage to the html
@@ -111,9 +111,9 @@ $(document).ready(function () {
             console.log("silt: " + silt);
             console.log("clay: " + clay);
             checkSoil();
-
+ 
             //Depending on user input, run the functions with 'vegetables' or 'fruits'
-
+ 
             // checkPlants(vegetables);
             // finalPlants(vegetables);
             //decide to use veggie objects or plant objects
@@ -136,11 +136,11 @@ $(document).ready(function () {
             }
         })
     } //end of the soilGrids Ajax call
-
+ 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ 
     //--------(STEP #7 define user's inputed address submit button to call the soilGrids api with a specfied adress)-----------------------------------------------
-
+ 
     //the address submit button
     $("#enter").click(function (event) {
         event.preventDefault();
@@ -159,7 +159,7 @@ $(document).ready(function () {
             latitude: [],
         };
     });
-
+ 
     var plantType = "nope"; //declare plant type globally so it can be used outside the onclick - think this is neccessary
     $(".form-check-input").on("click", function (event){
         //event.preventDefault(); //not needed because this is not a sumbit type button
@@ -167,11 +167,11 @@ $(document).ready(function () {
         plantType = $(temp).attr("data-type");
         console.log(plantType);
     })
-
-
+ 
+ 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+ 
+ 
     //function to check which plants match the user soil
     function checkPlants(plantArray) {
         //check if soil pH falls in each plant pH range
@@ -193,10 +193,10 @@ $(document).ready(function () {
         console.log("pH matches: " + matches.pH);
         console.log("latitude matches: " + matches.latitude);
         console.log("soil texture matches: " + matches.texture);
-
-
+ 
+ 
     }
-
+ 
     //function to determine the soil type at location
     function checkSoil() {
         //determine if soil type is loam
@@ -218,7 +218,7 @@ $(document).ready(function () {
             parseInt(clay);
             var high = Math.max(sand, silt, clay);
             console.log("high = " + high);
-
+ 
             //determine if soil type is sandy, silt, or clay
             if (high = sand) {
                 soilType = "sandy"
@@ -230,7 +230,7 @@ $(document).ready(function () {
         }
         console.log("Soil type: " + soilType)
     }
-    //function to determine the final plants array. 
+    //function to determine the final plants array.
     function finalPlants(plantArray) {
         for (i = 0; i < plantArray.length; i++) {
             for (j = 0; j < matches.pH.length; j++) {
@@ -245,45 +245,46 @@ $(document).ready(function () {
             }
             for (l = 0; l < matches.latitude.length; l++) {
                 if (plantArray[i].type === matches.latitude[l]) {
-
+ 
                     count++
                 }
             }
-            //Checks which plants meet 2 out of 3 requirements 
+            //Checks which plants meet 2 out of 3 requirements
             if (count >= 2) {
                 $("#recPlants").append("<li>" + plantArray[i].type + "</li>")
                 recMatches.push(plantArray[i].type);
             }
-            //Checks which plants meet 3 out of 3 requirements 
+            //Checks which plants meet 3 out of 3 requirements
             if (count === 3) {
-
+ 
                 $("#idealPlants").append("<li>" + plantArray[i].type + "</li>")
-                finalMatches.push(plantArray[i].type);
+                finalMatches.push(plantArray[i]);
                 count = 0;
             } else {
-                
+               
                 count = 0;
-
+ 
             }
             count = 0;
         }
-        
+       
         for(var i=0; i < finalMatches.length;i++ ){
             $("#Tips").append("<h5>" + finalMatches[i].type + "<br>" + "</h5>"  + "<br>" + finalMatches[i].tip1 + " "  + "<br>" + finalMatches[i].tip2 + "</p>" + "<br>");
-
-
+ 
+ 
         //this is if there was no ideal match, display that their soil is not ideal for our plants
         if(finalMatches.length < 1){
             $("#idealPlants").append("Sorry, our algorithm did not find any ideal plant matches for your soil.")
-
+ 
         }
         console.log("recommended: " + recMatches);
         console.log("final matches: " + finalMatches);
         console.log(finalMatches[0]);
+        }
     }
-
+ 
     //vegetable objects
-
+ 
     var vegetables = [{
             type: "tomato",
             pH: [5.5, 7.5],
@@ -331,8 +332,8 @@ $(document).ready(function () {
             latitude: [25, 45],
             tip1:["With a hoe or round-point shovel, dig a trench about 6 inches wide and 8 inches deep, tapering the bottom to about 3 inches wide. Potatoes are best grown in rows. Space rows about 3 feet apart. Spread and mix in rotted manure or organic compost in the bottom of the trench before planting. In the trench, place a seed potato piece, cut side down, every 12 to 14 inches and cover with 3 to 4 inches of soil. The best starters are seed potatoes from which eyes (buds) protrude. (Do not confuse seed potatoes with potato seeds or grocery produce.) Use a clean, sharp paring knife to cut large potatoes into pieces that are roughly the size of a golf ball, making sure that there are at least 2 eyes on each piece. (Potatoes that are smaller than a hen’s egg should be planted whole.)"],
             tip2:["Do not allow sunlight to fall on the tubers, which develop under the surface of the soil, or they will turn green. Do the hilling in the morning, when plants are at their tallest. During the heat of the day, plants start drooping. Maintain even moisture, especially from the time when sprouts appear until several weeks after they blossom. The plants need 1 to 2 inches of water per week. If you water too much right after planting and not enough as the potatoes begin to form, the tubers can become misshapen."]
-            
-
+           
+ 
         },
         {
             type: "squash",
@@ -359,9 +360,9 @@ $(document).ready(function () {
             tip2:["Gently mulch to retain moisture, speed germination, and block the sun from hitting the roots directly. Once plants are an inch tall, thin so that they stand 3 inches apart. Snip them with scissors instead of pulling them out to prevent damage to the roots of the remaining plants. Water at least one inch per week. Weed diligently. Fertilize with a balanced fertilizer 5-6 weeks after sowing."]
         }
     ]
-
+ 
     //fruits Objects
-
+ 
     var fruits = [{
             type: "watermelon",
             pH: [6.0, 6.8],
@@ -385,7 +386,7 @@ $(document).ready(function () {
             latitude: [25, 30],
             tip1: ["When growing pineapple tops, you’ll need to provide at least six hours of bright light. Water your plant as needed, allowing it to dry out some between watering. You can also fertilize the pineapple plant with a soluble houseplant fertilizer once or twice a month during spring and summer."],
             tip2: ["Keep it moist until roots develop. It should take about two months (6-8 weeks) for roots to establish. You can check for rooting by gently pulling the top to see the roots. Once significant root growth has occurred, you can start giving the plant additional light. "]
-
+ 
         },
         {
             type: "blackberry",
@@ -394,7 +395,7 @@ $(document).ready(function () {
             latitude: [25, 45],
              tip1:["When planting blackberries find a spot in the yard that has sunshine and good drainage. Also, be sure to avoid areas with heavy clay soil or sandy areas. If you are afraid your soil isn’t up to par for growing blackberry bushes, you should add organic soil matter to improve aeration and facilitate drainage."],
              tip2:["Water the plants after you put them into the ground. Also, cut the plants back to about 6 inches after you plant them. These new plants will not produce berries the first year. However, they require fertilizer and water. Growing blackberry bushes will start producing the following year if you have cared for the plant as you should."]
-
+ 
         },
         {
             type: "orange",
@@ -426,7 +427,7 @@ $(document).ready(function () {
             latitude: [30, 45],
             tip1: ["Be prepared to plant more than one type of plum tree because many types require cross-pollination to produce fruit, although there are some varieties that can produce fruit on their own.It is also important to choose a type that will work with your location. There are three categories of plum trees: European, Japanese, and Damson. The hardy European types work in most regions across the U.S., whereas the Japanese types flourish where peach trees thrive. There are also American hybrids that work well in regions where neither European or Japanese types survive."],
             tip2: ["Thinning plum trees is important to prevent branches from breaking under the weight of the fruit. If branches do break, prune them back to undamaged wood, ideally cutting back to a natural fork to avoid leaving stubs.Be sure to water the young trees heavily every week during the first growing season to help promote growth. Then, water regularly. It’s best to water the plant deeply at the soil line, then let the soil dry out (though not completely) and water again. Water your tree well into mid-October to give it plenty of moisture through the winter months.Do not fertilize young fruit trees until they have set a crop. Once established, fruit production requires regular fertilizing all year long. If there’s good fruit set, fertilize with one pound calcium nitrate per tree or 1½ lb. 10-10-10. Cut back the nitrogen in fall and winter to avoid encouraging new growth in those seasons."]
-
+ 
         },
         {
             type: "fig",
@@ -437,7 +438,7 @@ $(document).ready(function () {
             tip2:["Water young fig trees regularly to help them become established. In areas with dry climates, water fig trees deeply at least once a week. Unless grown in containers, most fig trees do not require regular fertilization. However, if your fig tree is not growing much (less than 12 inches in one growing season), you can add ½ to 1 pound of nitrogen supplement. Divide up the nitrogen into 3 to 4 feedings. Start applying the nitrogen in late winter and end in midsummer. You can also apply a layer of mulch around the tree to help prevent weeds and keep in moisture for the roots."]
         }
     ]
-
+ 
     var usStates = [{
             name: 'ALABAMA',
             abbreviation: 'AL'
@@ -674,7 +675,7 @@ $(document).ready(function () {
             name: 'WYOMING',
             abbreviation: 'WY'
         }
-
+ 
     ];
     for (var i = 0; i < usStates.length; i++) {
         var option = document.createElement("option");
@@ -682,5 +683,5 @@ $(document).ready(function () {
         option.value = usStates[i].abbreviation;
         inputState.add(option);
     }
-
+ 
 });
