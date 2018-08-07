@@ -96,9 +96,9 @@ $(document).ready(function () {
             silt = pull.SLTPPT.M.sl1;  //pulls the silt percentage of the soil
             clay = pull.CLYPPT.M.sl1;  //pulls the clay percentage of the soil
             //Write soil makeup to HTML 
-            $("#soilMakeup").append("<li>" + "Sand: " + sand + "%</li>");
-            $("#soilMakeup").append("<li>" + "Silt: " + silt + "%</li>");
-            $("#soilMakeup").append("<li>" + "Clay: " + clay + "%</li>");
+            $("#soilMakeup").append("<li>" + "Sand: " + sand + "%</li>"); //appending the sand percentage to the html
+            $("#soilMakeup").append("<li>" + "Silt: " + silt + "%</li>"); //appending the silt percentage to the html
+            $("#soilMakeup").append("<li>" + "Clay: " + clay + "%</li>"); //appending the clay percentage to the html
             //console log the variables to check the data
             console.log("pH: " + pH);
             console.log("latitude: " + Lat);
@@ -136,7 +136,7 @@ $(document).ready(function () {
                 matches.pH.push(plantArray[i].type);
             }
             //check if user latitude falls in each plant latitude range
-            if (lat >= plantArray[i].latitude[0] && lat <= plantArray[i].latitude[1]) {
+            if (Lat >= plantArray[i].latitude[0] && Lat <= plantArray[i].latitude[1]) {
                 matches.latitude.push(plantArray[i].type);
             }
             //check if user soil type matches plant soil type
@@ -158,13 +158,16 @@ $(document).ready(function () {
         //determine if soil type is loam
         var loamSand = 40 - sand;
         parseInt(loamSand);
-        console.log(loamSand);
+        console.log("if <= 5 sand match loam levels " + loamSand);
         var loamSilt = 40 - silt;
-        parseInt(loamSilt);
+        parseInt( loamSilt);
+        console.log(" if <= 5 silt match loam levels " + loamSilt);
         var loamClay = 20 - clay;
         parseInt(loamClay);
+        console.log("if <= 5 clay match loam levels " + loamClay);
         if ((loamSand >= -10 && loamSand <= 10) && (loamSilt >= -10 && loamSilt <= 10) && (loamClay >= -10 && loamClay <= 10)) {
             soilType = "loam";
+            console.log(soilType);
         }
         else {
             parseInt(sand);
