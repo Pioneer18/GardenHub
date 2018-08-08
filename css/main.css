@@ -190,10 +190,10 @@ iframe {
 }
 
 .wrap-contact100 {
-  width: 800px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 7px;
   overflow: hidden;
   padding: 62px 55px 90px 55px;
 }
@@ -1057,7 +1057,7 @@ html, body {
 
 /* line 18, ../scss/main.scss */
 .window:nth-child(3) {
-  background: #492c2c;
+  background: #333a3e;
   top: 200%;
 }
 
