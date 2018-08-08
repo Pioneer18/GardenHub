@@ -1072,7 +1072,9 @@ html, body {
 
 /* line 18, ../scss/main.scss */
 .window:nth-child(3) {
+
   background: #667467;
+
   top: 200%;
 }
 
