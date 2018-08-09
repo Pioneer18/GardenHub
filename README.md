@@ -4,7 +4,7 @@ project overview:
 
 ### Overview
 
-![alt text](Assets/images)
+[![screencapture-file-_Users-_Rodericktrice-_Documents-_Garden_Hub-index.png](https://s15.postimg.cc/wvujjibaz/screencapture-file-_Users-_Rodericktrice-_Documents-_Garden_Hub-index.png)](https://postimg.cc/image/tozzzvquv/)
 
 We used the googleMaps API and the soilGrids API.
 
